@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { BrowserRouter, Routes ,Route } from 'react-router-dom';
 
 //components
+import GlobalStyle from './styles/GlobalStyle';
 import Login from './components/Login';
 import Register from './components/Register';
 import Habits from './components/Habits';
@@ -15,8 +16,7 @@ function App() {
 
   return (
     <>
-      <header>
-      </header>
+      <GlobalStyle/>
       <BrowserRouter>
         <Routes>
           <Route
@@ -29,7 +29,7 @@ function App() {
           />
           <Route
             path="/habits"
-            element={<Habits/>}
+            element={<Habits userReceivedInfo={userReceivedInfo}/>}
           />
         </Routes>
       </BrowserRouter>
