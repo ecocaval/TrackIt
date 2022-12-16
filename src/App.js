@@ -1,6 +1,7 @@
 // libraries
 import { useState } from 'react';
 import { BrowserRouter, Routes ,Route } from 'react-router-dom';
+import styled from 'styled-components';
 
 //components
 import GlobalStyle from './styles/GlobalStyle';
@@ -15,7 +16,7 @@ function App() {
   console.log(userReceivedInfo);
 
   return (
-    <>
+    <StyledMain>
       <GlobalStyle/>
       <BrowserRouter>
         <Routes>
@@ -33,8 +34,13 @@ function App() {
           />
         </Routes>
       </BrowserRouter>
-    </>
+    </StyledMain>
   );
 }
+
+const StyledMain = styled.main`
+  background: #E5E5E5;
+  height: 100vh;
+`
 
 export default App;
