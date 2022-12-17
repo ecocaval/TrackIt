@@ -7,12 +7,22 @@ import WeekDayButton from "./WeekDayButton"
 import UserHeader from "./UserHeader"
 import UserMenu from "./UserMenu"
 
+import { HabitsContext } from "../Contexts/HabitsContext"
+
 export default function Habits() {
 
     const [buttonWasClicked, setButtonWasClicked] = useState(false)
     const [habitName, setHabitName] = useState('')
-    const [userHabits, setUserHabits] = useState([])
     const weekDaysArray = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S']
+
+    const { userHabits, setUserHabits } = useContext(HabitsContext)
+
+    function saveHabit() {
+        setUserHabits([...userHabits, {
+            name: {habitName},
+            selectedDays: {habitSelectedDays}
+        }])
+    }
 
     return (
         <HabitsWrapper>
@@ -41,11 +51,24 @@ export default function Habits() {
                         </WeekDaysWrapper>
                         <ButtonsWrapper>
                             <CancelButton>Cancelar</CancelButton>
-                            <SaveButton>Salvar</SaveButton>
+                            <SaveButton onClick={saveHabit}>
+                                Salvar
+                            </SaveButton>
                         </ButtonsWrapper>
                     </HabitSection>
                 ) : (<></>)}
-                {userHabits[0] ? (<></>) : (
+                {userHabits[0] ? (
+                    userHabits.map((habit) => {
+                        <Habit>
+                            <p>{habit.text}</p>
+                            {habit.weekDays.map((day, i) => (
+                                <WeekDayButton key={i}>
+                                    {day}
+                                </WeekDayButton>
+                            ))}
+                        </Habit>
+                    })
+                ) : (
                     <NoHabitsText>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</NoHabitsText>
                 )}
                 <UserMenu />
@@ -160,4 +183,7 @@ const SaveButton = styled.button`
     color: #FFFFFF;
     margin-left: 20px;
     margin-right: -120px;
+`
+
+const Habit = styled.div`
 `

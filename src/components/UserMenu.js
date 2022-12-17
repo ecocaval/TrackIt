@@ -5,11 +5,11 @@ import { CircularProgressbarWithChildren, buildStyles } from 'react-circular-pro
 import 'react-circular-progressbar/dist/styles.css';
 
 // contexts
-import { HabitsPercentageContext } from "../Contexts/HabitsPercentageContext"
+import { HabitsContext } from "../Contexts/HabitsContext"
 
 export default function UserMenu() {
 
-    const { userHabitsPercentage } = useContext(HabitsPercentageContext)
+    const { userHabitsPercentage } = useContext(HabitsContext)
 
     return (
         <UserMenuWrapper>

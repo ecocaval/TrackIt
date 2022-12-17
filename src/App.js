@@ -13,12 +13,13 @@ import Today from './components/Today';
 
 // contexts
 import { ReceivedInfoContext } from './Contexts/ReceivedInfoContext';
-import { HabitsPercentageContext } from './Contexts/HabitsPercentageContext';
+import { HabitsContext } from './Contexts/HabitsContext';
 
 function App() {
 
   const [userReceivedInfo, setUserReceivedInfo] = useState({})
-  const [userHabitsPercentage, setUserHabitsPercentage] = useState(60)
+  const [userHabitsPercentage, setUserHabitsPercentage] = useState(0)
+  const [userHabits, setUserHabits] = useState([])
 
   console.log(userReceivedInfo);
 
@@ -28,8 +29,8 @@ function App() {
       <ReceivedInfoContext.Provider
         value={{ userReceivedInfo, setUserReceivedInfo }}
       >
-        <HabitsPercentageContext.Provider
-          value={{ userHabitsPercentage, setUserHabitsPercentage }}
+        <HabitsContext.Provider
+          value={{ userHabitsPercentage, setUserHabitsPercentage, userHabits, setUserHabits }}
         >
           <BrowserRouter>
             <Routes>
@@ -55,7 +56,7 @@ function App() {
               />
             </Routes>
           </BrowserRouter>
-        </HabitsPercentageContext.Provider>
+        </HabitsContext.Provider>
       </ReceivedInfoContext.Provider>
     </StyledMain>
   );
