@@ -4,6 +4,7 @@ import styled from "styled-components"
 
 // components
 import WeekDayButton from "./WeekDayButton"
+import UserHeader from "./UserHeader"
 
 export default function Habits() {
 
@@ -14,6 +15,7 @@ export default function Habits() {
 
     return (
         <>
+            <UserHeader />
             <HabitsSection>
                 <span>
                     <p>Meus hábitos</p>

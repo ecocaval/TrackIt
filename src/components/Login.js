@@ -1,27 +1,24 @@
 // libraries
 import styled from "styled-components"
-import { useContext } from "react"
+import { useState, useContext } from "react"
 import { Link, useNavigate } from "react-router-dom"
+import { ThreeDots } from 'react-loader-spinner'
 
 // components
 import trackItLogo from "../assets/images/trackItLogo.png"
 import axios from "axios"
 
 //contexts
-import { LoginContext } from "../Contexts/LoginContext"
 import { ReceivedInfoContext } from "../Contexts/ReceivedInfoContext"
+
 
 export default function Login() {
 
-    const { userLoginLogin, setUserLoginLogin,
-        userPasswordLogin, setUserPasswordLogin,
-        sentRequestLogin, setSentRequestLogin } = useContext(LoginContext)
-
+      // login page
+    const [userLoginLogin, setUserLoginLogin] = useState('')
+    const [userPasswordLogin, setUserPasswordLogin] = useState('')
+    const [sentRequestLogin, setSentRequestLogin] = useState(false)
     const { setUserReceivedInfo } = useContext(ReceivedInfoContext)
-
-    // const [userLogin, setUserLoginLogin] = useState('')
-    // const [userPassword, setUserPassword] = useState('')
-    // const [sentRequestLogin, setSentRequestLogin] = useState(false)
 
     const navigate = useNavigate()
 
@@ -46,6 +43,7 @@ export default function Login() {
             })
             .catch(err => {
                 console.log(err)
+                alert("Seu login não foi encontrado... Tente novamente")
                 setSentRequestLogin(false)
             })
     }
@@ -74,7 +72,16 @@ export default function Login() {
                     type="submit"
                     disabled={sentRequestLogin}
                 >
-                    Entrar
+                    {sentRequestLogin ? <ThreeDots
+                        height="80"
+                        width="80"
+                        radius="9"
+                        color="#FFFFFF"
+                        ariaLabel="three-dots-loading"
+                        wrapperStyle={{}}
+                        wrapperClassName=""
+                        visible={true}
+                    /> : "Entrar"}
                 </button>
                 <Link to="/cadastro">
                     Não tem uma conta? Cadastre-se!
@@ -138,5 +145,8 @@ const StyledForm = styled.form`
         border-radius: 5px;
         font-size: 21px;
         text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 `

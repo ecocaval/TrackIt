@@ -1,41 +1,45 @@
 // libraries
 import styled from "styled-components"
-import { useContext } from "react"
-import { Link } from "react-router-dom"
+import { useState } from "react"
+import { Link, useNavigate } from "react-router-dom"
+import { ThreeDots } from 'react-loader-spinner'
 
 // components
 import trackItLogo from "../assets/images/trackItLogo.png"
 import axios from "axios"
 
 // contexts
-import { RegisterContext } from "../Contexts/RegisterContext"
 
 export default function Register() {
 
-    const {userLoginRegister, setUserLoginRegister,
-        userPasswordRegister, setUserPasswordRegister,
-        userNameRegister, setUserNameRegister,
-        userImageRegister, setUserImageRegister,
-        sentRequestRegister, setSentRequestRegister} = useContext(RegisterContext)
+    const navigate = useNavigate()
+
+    // register page
+    const [userLoginRegister, setUserLoginRegister] = useState('')
+    const [userPasswordRegister, setUserPasswordRegister] = useState('')
+    const [userNameRegister, setUserNameRegister] = useState('')
+    const [userImageRegister, setUserImageRegister] = useState('')
+    const [sentRequestRegister, setSentRequestRegister] = useState(false)
 
     function sendLogin(e) {
         e.preventDefault()
-        
+
         setSentRequestRegister(true)
-        
+
         const registerURL = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up"
-        
+
         const registerMessageToSend = {
             email: userLoginRegister,
             name: userNameRegister,
             image: userImageRegister,
             password: userPasswordRegister
-            
+
         }
 
         axios.post(registerURL, registerMessageToSend)
             .then(res => {
                 console.log(res);
+                navigate("/")
             })
             .catch(err => {
                 console.log(err)
@@ -77,7 +81,16 @@ export default function Register() {
                     placeholder="foto"
                 />
                 <button type="submit">
-                    Cadastrar
+                    {sentRequestRegister ? <ThreeDots
+                        height="80"
+                        width="80"
+                        radius="9"
+                        color="#FFFFFF"
+                        ariaLabel="three-dots-loading"
+                        wrapperStyle={{}}
+                        wrapperClassName=""
+                        visible={true}
+                    /> : "Cadastrar"}
                 </button>
                 <Link to="/">
                     Já tem uma conta? Faça login!
@@ -141,5 +154,8 @@ const StyledForm = styled.form`
         border-radius: 5px;
         font-size: 21px;
         text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 `
