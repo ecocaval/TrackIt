@@ -1,41 +1,52 @@
 // libraries
 import styled from "styled-components"
-import { useState } from "react"
+import { useContext } from "react"
 import { Link, useNavigate } from "react-router-dom"
 
 // components
 import trackItLogo from "../assets/images/trackItLogo.png"
 import axios from "axios"
 
-export default function Login({setUserReceivedInfo}) {
+//contexts
+import { LoginContext } from "../Contexts/LoginContext"
+import { ReceivedInfoContext } from "../Contexts/ReceivedInfoContext"
 
-    const [userLogin, setUserLogin] = useState('')
-    const [userPassword, setUserPassword] = useState('')
-    const [sentRequest, setSentRequest] = useState(false)
+export default function Login() {
+
+    const { userLoginLogin, setUserLoginLogin,
+        userPasswordLogin, setUserPasswordLogin,
+        sentRequestLogin, setSentRequestLogin } = useContext(LoginContext)
+
+    const { setUserReceivedInfo } = useContext(ReceivedInfoContext)
+
+    // const [userLogin, setUserLoginLogin] = useState('')
+    // const [userPassword, setUserPassword] = useState('')
+    // const [sentRequestLogin, setSentRequestLogin] = useState(false)
 
     const navigate = useNavigate()
 
     function sendLogin(e) {
         e.preventDefault()
 
-        setSentRequest(true)
+        setSentRequestLogin(true)
 
         const loginURL = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login"
+
         const loginMessageToSend = {
-            email: userLogin,
-            password: userPassword
+            email: userLoginLogin,
+            password: userPasswordLogin
         }
 
         axios.post(loginURL, loginMessageToSend)
             .then(res => {
                 console.log(res.data)
                 setUserReceivedInfo(res.data)
-                setSentRequest(false)
+                setSentRequestLogin(false)
                 navigate("/habits")
             })
             .catch(err => {
                 console.log(err)
-                setSentRequest(false)
+                setSentRequestLogin(false)
             })
     }
 
@@ -46,22 +57,22 @@ export default function Login({setUserReceivedInfo}) {
             </StyledHeader>
             <StyledForm onSubmit={(e) => sendLogin(e)}>
                 <input
-                    value={userLogin}
+                    value={userLoginLogin}
                     type="email"
-                    disabled={sentRequest}
-                    onChange={(e) => setUserLogin(e.currentTarget.value)}
+                    disabled={sentRequestLogin}
+                    onChange={(e) => setUserLoginLogin(e.currentTarget.value)}
                     placeholder="email"
                 />
                 <input
-                    value={userPassword}
+                    value={userPasswordLogin}
                     type="password"
-                    disabled={sentRequest}
-                    onChange={(e) => setUserPassword(e.currentTarget.value)}
+                    disabled={sentRequestLogin}
+                    onChange={(e) => setUserPasswordLogin(e.currentTarget.value)}
                     placeholder="senha"
                 />
-                <button 
+                <button
                     type="submit"
-                    disabled={sentRequest}    
+                    disabled={sentRequestLogin}
                 >
                     Entrar
                 </button>

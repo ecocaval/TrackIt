@@ -1,35 +1,35 @@
 // libraries
 import styled from "styled-components"
-import { useState } from "react"
+import { useContext } from "react"
 import { Link } from "react-router-dom"
 
 // components
 import trackItLogo from "../assets/images/trackItLogo.png"
 import axios from "axios"
 
+// contexts
+import { RegisterContext } from "../Contexts/RegisterContext"
+
 export default function Register() {
 
-    const [userLogin, setUserLogin] = useState('')
-    const [userPassword, setUserPassword] = useState('')
-    const [userName, setUserName] = useState('')
-    const [userImage, setUserImage] = useState('')
-    const [sentRequest, setSentRequest] = useState(false)
-
-    console.log(userLogin);
-    console.log(userPassword);
+    const {userLoginRegister, setUserLoginRegister,
+        userPasswordRegister, setUserPasswordRegister,
+        userNameRegister, setUserNameRegister,
+        userImageRegister, setUserImageRegister,
+        sentRequestRegister, setSentRequestRegister} = useContext(RegisterContext)
 
     function sendLogin(e) {
         e.preventDefault()
         
-        setSentRequest(true)
+        setSentRequestRegister(true)
         
         const registerURL = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up"
         
         const registerMessageToSend = {
-            email: userLogin,
-            name: userName,
-            image: userImage,
-            password: userPassword
+            email: userLoginRegister,
+            name: userNameRegister,
+            image: userImageRegister,
+            password: userPasswordRegister
             
         }
 
@@ -49,31 +49,31 @@ export default function Register() {
             </StyledHeader>
             <StyledForm onSubmit={(e) => sendLogin(e)}>
                 <input
-                    value={userLogin}
+                    value={userLoginRegister}
                     type="email"
-                    disabled={sentRequest}
-                    onChange={(e) => setUserLogin(e.currentTarget.value)}
+                    disabled={sentRequestRegister}
+                    onChange={(e) => setUserLoginRegister(e.currentTarget.value)}
                     placeholder="email"
                 />
                 <input
-                    value={userPassword}
+                    value={userPasswordRegister}
                     type="password"
-                    disabled={sentRequest}
-                    onChange={(e) => setUserPassword(e.currentTarget.value)}
+                    disabled={sentRequestRegister}
+                    onChange={(e) => setUserPasswordRegister(e.currentTarget.value)}
                     placeholder="senha"
                 />
                 <input
-                    value={userName}
+                    value={userNameRegister}
                     type="text"
-                    disabled={sentRequest}
-                    onChange={(e) => setUserName(e.currentTarget.value)}
+                    disabled={sentRequestRegister}
+                    onChange={(e) => setUserNameRegister(e.currentTarget.value)}
                     placeholder="nome"
                 />
                 <input
-                    value={userImage}
+                    value={userImageRegister}
                     type="url"
-                    disabled={sentRequest}
-                    onChange={(e) => setUserImage(e.currentTarget.value)}
+                    disabled={sentRequestRegister}
+                    onChange={(e) => setUserImageRegister(e.currentTarget.value)}
                     placeholder="foto"
                 />
                 <button type="submit">

@@ -1,6 +1,13 @@
+// libraries
 import styled from "styled-components"
+import { useContext } from "react";
 
-export default function UserHeader({userReceivedInfo}) {
+// contexts 
+import { ReceivedInfoContext } from "../Contexts/ReceivedInfoContext"
+
+export default function UserHeader() {
+
+    const { userReceivedInfo } = useContext(ReceivedInfoContext)
 
     console.log(userReceivedInfo);
 

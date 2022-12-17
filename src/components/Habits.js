@@ -1,10 +1,11 @@
+// libraries
 import { useState } from "react"
-import UserHeader from "./UserHeader"
 import styled from "styled-components"
 
+// components
 import WeekDayButton from "./WeekDayButton"
 
-export default function Habits({ userReceivedInfo }) {
+export default function Habits() {
 
     const [buttonWasClicked, setButtonWasClicked] = useState(false)
     const [habitName, setHabitName] = useState('')
@@ -13,7 +14,6 @@ export default function Habits({ userReceivedInfo }) {
 
     return (
         <>
-            <UserHeader userReceivedInfo={userReceivedInfo} />
             <HabitsSection>
                 <span>
                     <p>Meus hábitos</p>
@@ -117,16 +117,6 @@ const HabitSection = styled.section`
 const WeekDaysWrapper = styled.span`
     margin: 20px 0;
     margin-left: -90px;
-    > button {
-        font-family: 'Lexend Deca';
-        width: 30px;
-        height: 30px;
-        background: #FFFFFF;
-        border: 1px solid #D5D5D5;
-        border-radius: 5px;
-        font-size: 20px;
-        color: #DBDBDB;
-    }
 `
 
 const NoHabitsText = styled.text`
