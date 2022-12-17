@@ -1,5 +1,5 @@
 // libraries
-import { useState } from "react"
+import { useState, useContext } from "react"
 import styled from "styled-components"
 
 // components
@@ -48,7 +48,7 @@ export default function Habits() {
                 {userHabits[0] ? (<></>) : (
                     <NoHabitsText>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</NoHabitsText>
                 )}
-            <UserMenu/>
+                <UserMenu />
             </HabitsSection>
         </HabitsWrapper>
     )
