@@ -48,11 +48,16 @@ export default function Habits() {
     const { userHabits, setUserHabits } = useContext(HabitsContext)
 
     function saveHabit() {
-        setUserHabits([...userHabits, {
-            name: { habitName },
-            selectedDays: { selectedDays }
-        }])
+        const newHabit = {
+            name: habitName,
+            selectedDays: selectedDays
+        }
+        setUserHabits([...userHabits, newHabit])
+        setAddButtonWasClicked(!addButtonWasClicked)    
     }
+
+    console.log(selectedDays);
+    console.log(userHabits);
 
     return (
         <HabitsWrapper>
@@ -90,23 +95,24 @@ export default function Habits() {
                         </ButtonsWrapper>
                     </HabitSection>
                 ) : (<></>)}
-                {userHabits[0] ? (
-                    userHabits.map((habit) => {
-                        <Habit>
-                            <p>{habit.name}</p>
-                            {habit.selectedDays.map((day, i) => (
-                                <WeekDayDiv
-                                    key={i}
-                                    day={day}
-                                />
-                            ))}
-                        </Habit>
-                    })
-                ) : (
+                {!userHabits[0] && (
                     <NoHabitsText>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</NoHabitsText>
                 )}
                 <UserMenu />
             </HabitsSection>
+            {userHabits[0] && (
+                userHabits.map((habit) => (
+                    <Habit>
+                        <p>{habit.name}</p>
+                        {habit.selectedDays.map((day, i) => (
+                            <WeekDayDiv
+                                key={i}
+                                day={day}
+                            />
+                        ))}
+                    </Habit>
+                ))
+            )}
         </HabitsWrapper>
     )
 }
@@ -220,4 +226,8 @@ const SaveButton = styled.button`
 `
 
 const Habit = styled.div`
+    width: 340px;
+    height: 91px;
+    background: #FFFFFF;
+    border-radius: 5px;
 `

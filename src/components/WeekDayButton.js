@@ -12,7 +12,7 @@ export default function WeekDayButton({day, selectedDays, setSelectedDays}) {
             weekButtonClicked={weekButtonClicked} 
             onClick={() => {
             setWeekButtonClicked(!weekButtonClicked)
-            setSelectedDays(...selectedDays, day.weekDay)
+            setSelectedDays([...selectedDays, day.weekDay])
         }}>
             {day.initialLeter}
         </StyledButton>
