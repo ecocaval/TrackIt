@@ -39,7 +39,7 @@ export default function Login() {
                 console.log(res.data)
                 setUserReceivedInfo(res.data)
                 setSentRequestLogin(false)
-                navigate("/habits")
+                navigate("/hoje")
             })
             .catch(err => {
                 console.log(err)

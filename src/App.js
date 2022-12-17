@@ -35,7 +35,7 @@ function App() {
               element={<Register />}
             />
             <Route
-              path="/habits"
+              path="/hoje"
               element={<Habits />}
             />
           </Routes>

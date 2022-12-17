@@ -40,9 +40,12 @@ export default function Register() {
             .then(res => {
                 console.log(res);
                 navigate("/")
+                setSentRequestRegister(false)
             })
             .catch(err => {
+                alert("Não foi possivel realizar o cadastro... Tente novamente")
                 console.log(err)
+                setSentRequestRegister(false)
             })
     }
 
