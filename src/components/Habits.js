@@ -5,6 +5,7 @@ import styled from "styled-components"
 // components
 import WeekDayButton from "./WeekDayButton"
 import UserHeader from "./UserHeader"
+import UserMenu from "./UserMenu"
 
 export default function Habits() {
 
@@ -14,7 +15,7 @@ export default function Habits() {
     const weekDaysArray = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S']
 
     return (
-        <>
+        <HabitsWrapper>
             <UserHeader />
             <HabitsSection>
                 <span>
@@ -47,11 +48,15 @@ export default function Habits() {
                 {userHabits[0] ? (<></>) : (
                     <NoHabitsText>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</NoHabitsText>
                 )}
-
+            <UserMenu/>
             </HabitsSection>
-        </>
+        </HabitsWrapper>
     )
 }
+
+const HabitsWrapper = styled.main`
+    margin-top: 71px;
+`
 
 const HabitsSection = styled.section`
     display: flex;
