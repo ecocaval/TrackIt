@@ -1,7 +1,7 @@
 import { useState } from "react"
 import styled from "styled-components"
 
-export default function WeekDayButton({day, selectedDays, setSelectedDays}) {
+export default function WeekDayDiv({day}) {
     
     const [weekButtonClicked, setWeekButtonClicked] = useState(false)
 
@@ -12,7 +12,6 @@ export default function WeekDayButton({day, selectedDays, setSelectedDays}) {
             weekButtonClicked={weekButtonClicked} 
             onClick={() => {
             setWeekButtonClicked(!weekButtonClicked)
-            setSelectedDays(...selectedDays, day.weekDay)
         }}>
             {day.initialLeter}
         </StyledButton>
@@ -20,7 +19,7 @@ export default function WeekDayButton({day, selectedDays, setSelectedDays}) {
 }
 
 const StyledButton = styled.button`
-    font-family: 'Lexend Deca';
+    font-family: 'Lexend Deca'; 
     width: 30px;
     height: 30px;
     background: ${props => props.weekButtonClicked ? "#CFCFCF" : "#FFFFFF"};

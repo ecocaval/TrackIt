@@ -4,6 +4,7 @@ import styled from "styled-components"
 
 // components
 import WeekDayButton from "./WeekDayButton"
+import WeekDayDiv from "./WeekDayDIv"
 import UserHeader from "./UserHeader"
 import UserMenu from "./UserMenu"
 
@@ -11,16 +12,45 @@ import { HabitsContext } from "../Contexts/HabitsContext"
 
 export default function Habits() {
 
-    const [buttonWasClicked, setButtonWasClicked] = useState(false)
+    const [addButtonWasClicked, setAddButtonWasClicked] = useState(false)
     const [habitName, setHabitName] = useState('')
-    const weekDaysArray = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S']
+    const [selectedDays, setSelectedDays] = useState([])
+    const weekDaysArray = [
+        {
+            initialLeter: 'D',
+            weekDay: "domingo"
+        },
+        {
+            initialLeter: 'S',
+            weekDay: "segunda"
+        },
+        {
+            initialLeter: 'T',
+            weekDay: "terca"
+        },
+        {
+            initialLeter: 'Q',
+            weekDay: "quarta"
+        },
+        {
+            initialLeter: 'Q',
+            weekDay: "quinta"
+        },
+        {
+            initialLeter: 'S',
+            weekDay: "sexta"
+        },
+        {
+            initialLeter: 'S',
+            weekDay: "sabado"
+        }]
 
     const { userHabits, setUserHabits } = useContext(HabitsContext)
 
     function saveHabit() {
         setUserHabits([...userHabits, {
-            name: {habitName},
-            selectedDays: {habitSelectedDays}
+            name: { habitName },
+            selectedDays: { selectedDays }
         }])
     }
 
@@ -30,11 +60,11 @@ export default function Habits() {
             <HabitsSection>
                 <span>
                     <p>Meus hábitos</p>
-                    <button onClick={() => setButtonWasClicked(!buttonWasClicked)}>
+                    <button onClick={() => setAddButtonWasClicked(!addButtonWasClicked)}>
                         +
                     </button>
                 </span>
-                {buttonWasClicked ? (
+                {addButtonWasClicked ? (
                     <HabitSection>
                         <input
                             type="text"
@@ -44,9 +74,12 @@ export default function Habits() {
                         />
                         <WeekDaysWrapper>
                             {weekDaysArray.map((day, i) => (
-                                <WeekDayButton key={i}>
-                                    {day}
-                                </WeekDayButton>
+                                <WeekDayButton
+                                    key={i}
+                                    day={day}
+                                    selectedDays={selectedDays}
+                                    setSelectedDays={setSelectedDays}
+                                />
                             ))}
                         </WeekDaysWrapper>
                         <ButtonsWrapper>
@@ -60,11 +93,12 @@ export default function Habits() {
                 {userHabits[0] ? (
                     userHabits.map((habit) => {
                         <Habit>
-                            <p>{habit.text}</p>
-                            {habit.weekDays.map((day, i) => (
-                                <WeekDayButton key={i}>
-                                    {day}
-                                </WeekDayButton>
+                            <p>{habit.name}</p>
+                            {habit.selectedDays.map((day, i) => (
+                                <WeekDayDiv
+                                    key={i}
+                                    day={day}
+                                />
                             ))}
                         </Habit>
                     })

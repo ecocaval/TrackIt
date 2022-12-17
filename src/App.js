@@ -20,6 +20,8 @@ function App() {
   const [userReceivedInfo, setUserReceivedInfo] = useState({})
   const [userHabitsPercentage, setUserHabitsPercentage] = useState(0)
   const [userHabits, setUserHabits] = useState([])
+  const [habitNameToAdd, setHabitNameToAdd] = useState("")
+  const [habitSelectedDaysToAdd, setHabitSelectedDaysToAdd] = useState([])
 
   console.log(userReceivedInfo);
 
@@ -30,7 +32,7 @@ function App() {
         value={{ userReceivedInfo, setUserReceivedInfo }}
       >
         <HabitsContext.Provider
-          value={{ userHabitsPercentage, setUserHabitsPercentage, userHabits, setUserHabits }}
+          value={{ userHabitsPercentage, setUserHabitsPercentage, userHabits, setUserHabits, habitNameToAdd, setHabitNameToAdd,habitSelectedDaysToAdd, setHabitSelectedDaysToAdd }}
         >
           <BrowserRouter>
             <Routes>
