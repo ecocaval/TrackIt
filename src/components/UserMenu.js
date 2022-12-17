@@ -1,16 +1,17 @@
 import styled from "styled-components"
+import { Link } from "react-router-dom"
 
 export default function UserMenu() {
+
     return (
         <UserMenuWrapper>
-            <p>Hábitos</p>
+            <Link to="/habitos">Hábitos</Link>
             <TodayCircle>
                 <div>
-                    <p>Hoje</p>
-
+                    <Link to="/hoje">Hoje</Link>
                 </div>
             </TodayCircle>
-            <p>Histórico</p>
+            <Link to="/historico">Histórico</Link>
         </UserMenuWrapper>
     )
 }
@@ -27,10 +28,11 @@ const UserMenuWrapper = styled.div`
     left: 0;
     bottom: 0;
     background: #FFFFFF;
-    > p {
+    > a {
         font-family: 'Lexend Deca';
         font-size: 18px;
         color: #52B6FF;
+        text-decoration: none;
     }
 `
 
@@ -44,11 +46,12 @@ const TodayCircle = styled.div`
     background: #52B6FF;
     margin-top: -40px;
     > div {
-        > p {
+        > a {
             font-family: 'Lexend Deca';
             font-size: 18px;
             text-align: center;
             color: #FFFFFF;
+            text-decoration: none;
         }
     }
 `

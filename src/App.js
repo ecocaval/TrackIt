@@ -8,6 +8,8 @@ import GlobalStyle from './styles/GlobalStyle';
 import Login from './components/Login';
 import Register from './components/Register';
 import Habits from './components/Habits';
+import Records from './components/Records';
+import Today from './components/Today';
 
 // contexts
 import { ReceivedInfoContext } from './Contexts/ReceivedInfoContext';
@@ -36,7 +38,15 @@ function App() {
             />
             <Route
               path="/hoje"
+              element={<Today />}
+            />
+            <Route
+              path="/habitos"
               element={<Habits />}
+            />
+            <Route
+              path="/historico"
+              element={<Records />}
             />
           </Routes>
         </BrowserRouter>
