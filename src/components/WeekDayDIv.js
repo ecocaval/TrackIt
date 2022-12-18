@@ -5,8 +5,6 @@ export default function WeekDayDiv({day}) {
     
     const [weekButtonClicked, setWeekButtonClicked] = useState(false)
 
-    console.log(day);
-
     return (
         <StyledButton 
             weekButtonClicked={weekButtonClicked} 

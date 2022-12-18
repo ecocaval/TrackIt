@@ -23,8 +23,6 @@ function App() {
   const [habitNameToAdd, setHabitNameToAdd] = useState("")
   const [habitSelectedDaysToAdd, setHabitSelectedDaysToAdd] = useState([])
 
-  console.log(userReceivedInfo);
-
   return (
     <StyledMain>
       <GlobalStyle />

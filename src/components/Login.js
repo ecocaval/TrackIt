@@ -36,13 +36,11 @@ export default function Login() {
 
         axios.post(loginURL, loginMessageToSend)
             .then(res => {
-                console.log(res.data)
                 setUserReceivedInfo(res.data)
                 setSentRequestLogin(false)
                 navigate("/habitos") // CHANGE TO HOJE AFTER
             })
             .catch(err => {
-                console.log(err)
                 alert("Seu login não foi encontrado... Tente novamente")
                 setSentRequestLogin(false)
             })

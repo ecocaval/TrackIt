@@ -9,8 +9,6 @@ export default function UserHeader() {
 
     const { userReceivedInfo } = useContext(ReceivedInfoContext)
 
-    console.log(userReceivedInfo);
-
     return (
         <UserHeaderWrapper>
             <p>TrackIt</p>

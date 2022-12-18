@@ -5,14 +5,12 @@ export default function WeekDayButton({day, selectedDays, setSelectedDays}) {
     
     const [weekButtonClicked, setWeekButtonClicked] = useState(false)
 
-    console.log(day);
-
     return (
         <StyledButton 
             weekButtonClicked={weekButtonClicked} 
             onClick={() => {
             setWeekButtonClicked(!weekButtonClicked)
-            setSelectedDays([...selectedDays, day.weekDay])
+            setSelectedDays([...selectedDays, day.weekDayNumber])
         }}>
             {day.initialLeter}
         </StyledButton>

@@ -1,6 +1,7 @@
 // libraries
 import { useState, useContext } from "react"
 import styled from "styled-components"
+import axios from "axios"
 
 // components
 import WeekDayButton from "./WeekDayButton"
@@ -9,6 +10,7 @@ import UserHeader from "./UserHeader"
 import UserMenu from "./UserMenu"
 
 import { HabitsContext } from "../Contexts/HabitsContext"
+import { ReceivedInfoContext } from "../Contexts/ReceivedInfoContext"
 
 export default function Habits() {
 
@@ -18,46 +20,81 @@ export default function Habits() {
     const weekDaysArray = [
         {
             initialLeter: 'D',
-            weekDay: "domingo"
+            weekDay: "domingo",
+            weekDayNumber: 1,
         },
         {
             initialLeter: 'S',
-            weekDay: "segunda"
+            weekDay: "segunda",
+            weekDayNumber: 2,
         },
         {
             initialLeter: 'T',
-            weekDay: "terca"
+            weekDay: "terca",
+            weekDayNumber: 3,
         },
         {
             initialLeter: 'Q',
-            weekDay: "quarta"
+            weekDay: "quarta",
+            weekDayNumber: 4,
         },
         {
             initialLeter: 'Q',
-            weekDay: "quinta"
+            weekDay: "quinta",
+            weekDayNumber: 5,
         },
         {
             initialLeter: 'S',
-            weekDay: "sexta"
+            weekDay: "sexta",
+            weekDayNumber: 6,
         },
         {
             initialLeter: 'S',
-            weekDay: "sabado"
+            weekDay: "sabado",
+            weekDayNumber: 7,
         }]
 
     const { userHabits, setUserHabits } = useContext(HabitsContext)
+    const { userReceivedInfo } = useContext(ReceivedInfoContext)
 
     function saveHabit() {
         const newHabit = {
             name: habitName,
-            selectedDays: selectedDays
+            days: selectedDays
         }
-        setUserHabits([...userHabits, newHabit])
-        setAddButtonWasClicked(!addButtonWasClicked)    
+        
+        const config = {
+            headers: {
+                "Authorization": "Bearer " + userReceivedInfo.token
+            }
+        }
+
+        const postHabitUrl = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits"
+
+        function getHabits() {
+            const getHabitUrl = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits"
+
+            axios.get(getHabitUrl, config)
+                .then(response => {
+                    console.log(response.data)
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+        }
+
+        axios.post(postHabitUrl, newHabit, config)
+            .then(response => {
+                console.log(response.data)
+                getHabits()
+            })
+            .catch(err => console.log(err))
+
+        // setUserHabits([...userHabits, newHabit])
+        setAddButtonWasClicked(!addButtonWasClicked)
     }
 
-    console.log(selectedDays);
-    console.log(userHabits);
+    console.log(userHabits)
 
     return (
         <HabitsWrapper>
