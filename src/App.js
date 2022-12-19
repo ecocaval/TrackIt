@@ -23,14 +23,20 @@ function App() {
   const [habitNameToAdd, setHabitNameToAdd] = useState("")
   const [habitSelectedDaysToAdd, setHabitSelectedDaysToAdd] = useState([])
 
+  const config = {
+    headers: {
+      "Authorization": "Bearer " + userReceivedInfo.token
+    }
+  }
+
   return (
     <StyledMain>
       <GlobalStyle />
       <ReceivedInfoContext.Provider
-        value={{ userReceivedInfo, setUserReceivedInfo }}
+        value={{ userReceivedInfo, setUserReceivedInfo, config }}
       >
         <HabitsContext.Provider
-          value={{ userHabitsPercentage, setUserHabitsPercentage, userHabits, setUserHabits, habitNameToAdd, setHabitNameToAdd,habitSelectedDaysToAdd, setHabitSelectedDaysToAdd }}
+          value={{ userHabitsPercentage, setUserHabitsPercentage, userHabits, setUserHabits, habitNameToAdd, setHabitNameToAdd, habitSelectedDaysToAdd, setHabitSelectedDaysToAdd }}
         >
           <BrowserRouter>
             <Routes>

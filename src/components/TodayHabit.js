@@ -1,22 +1,33 @@
+import axios from "axios";
 import { useContext, useState } from "react";
 import styled from "styled-components"
 
 import { HabitsContext } from "../Contexts/HabitsContext";
+import { ReceivedInfoContext } from "../Contexts/ReceivedInfoContext";
 
 import checkMark from "./../assets/images/check-mark.png"
 
 export default function TodayHabit({ todayHabitInfo, habitsQuantity, habitsConcluded, setHabitsConcluded }) {
 
-    const { userHabitsPercentage, setUserHabitsPercentage } = useContext(HabitsContext)
+    const {config} = useContext(ReceivedInfoContext)
 
-    const [habitWasConcluded, setHabitWasConcluded] = useState(false)
+    const { setUserHabitsPercentage } = useContext(HabitsContext)
+
+    const [habitWasConcluded, setHabitWasConcluded] = useState(todayHabitInfo.done)
 
     function concludeHabit() {
+        const checkHabitUrl = `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${todayHabitInfo.id}/check`
+
+        const uncheckHabitUrl = `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${todayHabitInfo.id}/uncheck`
+
         if (!habitWasConcluded) {
             setHabitWasConcluded(!habitWasConcluded)
             if (!habitsConcluded.includes(todayHabitInfo.name)) {
                 setHabitsConcluded([...habitsConcluded, todayHabitInfo.name])
                 setUserHabitsPercentage(((habitsConcluded.length + 1) / habitsQuantity) * 100)
+                axios.post(checkHabitUrl, {}, config)
+                    .then(response => console.log(response))
+                    .catch(err => console.error(err))
             }
         } else {
             setHabitWasConcluded(!habitWasConcluded)
@@ -28,6 +39,9 @@ export default function TodayHabit({ todayHabitInfo, habitsQuantity, habitsConcl
             })
             setHabitsConcluded(newHabitsConcluded)
             setUserHabitsPercentage(((habitsConcluded.length - 1) / habitsQuantity) * 100)
+            axios.post(uncheckHabitUrl, {}, config)
+                    .then(response => console.log(response))
+                    .catch(err => console.error(err))
         }
     }
 

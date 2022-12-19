@@ -16,6 +16,8 @@ export default function Today() {
     const { userHabitsPercentage, setUserHabitsPercentage } = useContext(HabitsContext)
     const [todayHabits, setTodayHabits] = useState([])
 
+    console.log(todayHabits);
+
     require("dayjs/locale/pt-br")
 
     const noHabitsConcluded = (userHabitsPercentage === 0)
@@ -59,17 +61,19 @@ export default function Today() {
             <TodaySection noHabitsConcluded={noHabitsConcluded}>
                 <TodayHeader>
                     <h2>{currentDay}</h2>
-                    <p>{noHabitsConcluded ? ("Nenhum hábito concluído ainda") : (`${userHabitsPercentage}% dos hábitos concluídos`)}</p>
+                    <p>{noHabitsConcluded ? ("Nenhum hábito concluído ainda") : (`${userHabitsPercentage.toFixed(0)}% dos hábitos concluídos`)}</p>
                 </TodayHeader>
                 <TodayHabitsSection>
                     {todayHabits[0] !== undefined && (todayHabits.map((todayHabit, i) => (
-                        <TodayHabit
-                            key={i}
-                            todayHabitInfo={todayHabit}
-                            habitsQuantity={todayHabits.length}
-                            habitsConcluded={habitsConcluded}
-                            setHabitsConcluded={setHabitsConcluded}
-                        />
+                        <div>
+                            <TodayHabit
+                                key={i}
+                                todayHabitInfo={todayHabit}
+                                habitsQuantity={todayHabits.length}
+                                habitsConcluded={habitsConcluded}
+                                setHabitsConcluded={setHabitsConcluded}
+                            />
+                        </div>
                     )))}
                 </TodayHabitsSection>
             </TodaySection>
@@ -109,5 +113,7 @@ const TodayHeader = styled.div`
 `
 
 const TodayHabitsSection = styled.section`
-
+    > div {
+        margin-bottom: 20px;
+    }
 `
