@@ -38,7 +38,7 @@ export default function Login() {
             .then(res => {
                 setUserReceivedInfo(res.data)
                 setSentRequestLogin(false)
-                navigate("/habitos") // CHANGE TO HOJE AFTER
+                navigate("/hoje") // CHANGE TO HOJE AFTER
             })
             .catch(err => {
                 alert("Seu login não foi encontrado... Tente novamente")
