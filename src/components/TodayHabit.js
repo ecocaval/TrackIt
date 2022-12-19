@@ -9,6 +9,8 @@ import checkMark from "./../assets/images/check-mark.png"
 
 export default function TodayHabit({ todayHabitInfo, habitsQuantity, habitsConcluded, setHabitsConcluded }) {
 
+    console.log(todayHabitInfo)
+
     const {config} = useContext(ReceivedInfoContext)
 
     const { setUserHabitsPercentage } = useContext(HabitsContext)
@@ -48,10 +50,16 @@ export default function TodayHabit({ todayHabitInfo, habitsQuantity, habitsConcl
     return (
         <TodayHabitWrapper>
             <span>
-                <HabitInfo>
+                <HabitInfo habitWasConcluded={habitWasConcluded}>
                     <h3>{todayHabitInfo.name}</h3>
-                    <p>Sequencia atual: {todayHabitInfo.currentSequence} dias</p>
-                    <p>Seu recorde: {todayHabitInfo.highestSequence} dias</p>
+                    <span>
+                        <p>Sequencia atual:</p>
+                        <p>{todayHabitInfo.currentSequence} dias</p>
+                    </span>
+                    <span>
+                        <p>Seu recorde:</p>
+                        <p>{todayHabitInfo.highestSequence} dias</p>
+                    </span>
                 </HabitInfo>
                 <CheckButton
                     habitWasConcluded={habitWasConcluded}
@@ -84,11 +92,18 @@ const HabitInfo = styled.div`
         color: #666666;
         margin-top: 5px;
     }
-    > p {
-        font-family: 'Lexend Deca';
-        font-size: 13px;
-        margin-top: 5px;
-        color: #666666;
+    > span {
+        display: flex;
+        > p {
+            font-family: 'Lexend Deca';
+            font-size: 13px;
+            margin-top: 5px;
+            color: #666666;
+        }
+        > p:nth-child(2) {
+            margin-left: 5px;
+            color: ${props => props.habitWasConcluded ? "#8FC549" : "#666666"};
+        }
     }
 
 `

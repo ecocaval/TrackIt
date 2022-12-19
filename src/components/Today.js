@@ -16,8 +16,6 @@ export default function Today() {
     const { userHabitsPercentage, setUserHabitsPercentage } = useContext(HabitsContext)
     const [todayHabits, setTodayHabits] = useState([])
 
-    console.log(todayHabits);
-
     require("dayjs/locale/pt-br")
 
     const noHabitsConcluded = (userHabitsPercentage === 0)
@@ -33,8 +31,21 @@ export default function Today() {
             "Authorization": "Bearer " + userReceivedInfo.token
         }
     }
+    
+    let habitsConcludedAux = todayHabits.filter((habit) => {
+        if(habit.done) {
+            return true
+        }
+        return false
+    })
+    
+    habitsConcludedAux = habitsConcludedAux.map((habit) => {
+        return habit.name
+    })
 
-    const [habitsConcluded, setHabitsConcluded] = useState([]);
+    
+    const [habitsConcluded, setHabitsConcluded] = useState([...habitsConcludedAux]);
+    console.log(habitsConcluded);
 
     function setFirstLetterToUpper(currentDay) {
         currentDay = Array.from(currentDay)
@@ -48,7 +59,7 @@ export default function Today() {
         axios.get(todayGetUrl, config)
             .then(res => {
                 setTodayHabits(res.data)
-                console.log(res.data);
+                console.log(res.data)
             })
             .catch(err => {
                 console.log(err)

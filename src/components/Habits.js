@@ -77,7 +77,6 @@ export default function Habits() {
 
         axios.post(postHabitUrl, newHabit, config)
             .then(response => {
-                console.log(response.data)
                 setAddButtonWasClicked(!addButtonWasClicked)
                 setSelectedDays([])
                 getHabits()
@@ -95,7 +94,6 @@ export default function Habits() {
 
         axios.get(getHabitUrl, config)
             .then(response => {
-                console.log(response.data)
                 setUserHabits(response.data)
             })
             .catch(err => console.log(err))
@@ -118,8 +116,6 @@ export default function Habits() {
     }
 
     useEffect(getHabits, [])
-
-    console.log(userHabits)
 
     return (
         <HabitsWrapper>
