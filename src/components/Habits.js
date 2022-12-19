@@ -102,16 +102,12 @@ export default function Habits() {
     }
 
     function deleteHabit(habitId) {
-        console.log(habitId)
 
         if (window.confirm('Você realmente deseja deletar este hábito?')) {
 
-            const deleteHabit = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/" + habitId
+            const deleteHabitUrl = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/" + habitId
 
-            console.log(deleteHabit)
-            console.log(habitId)
-
-            axios.delete(deleteHabit, config)
+            axios.delete(deleteHabitUrl, config)
                 .then(response => {
                     console.log(response)
                     getHabits()
