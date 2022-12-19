@@ -11,7 +11,7 @@ export default function TodayHabit({ todayHabitInfo, habitsQuantity, habitsConcl
 
     console.log(todayHabitInfo)
 
-    const {config} = useContext(ReceivedInfoContext)
+    const { config } = useContext(ReceivedInfoContext)
 
     const { setUserHabitsPercentage } = useContext(HabitsContext)
 
@@ -34,7 +34,7 @@ export default function TodayHabit({ todayHabitInfo, habitsQuantity, habitsConcl
         } else {
             setHabitWasConcluded(!habitWasConcluded)
             const newHabitsConcluded = habitsConcluded.filter((habit) => {
-                if(habit === todayHabitInfo.name) {
+                if (habit === todayHabitInfo.name) {
                     return false
                 }
                 return true
@@ -42,8 +42,8 @@ export default function TodayHabit({ todayHabitInfo, habitsQuantity, habitsConcl
             setHabitsConcluded(newHabitsConcluded)
             setUserHabitsPercentage(((habitsConcluded.length - 1) / habitsQuantity) * 100)
             axios.post(uncheckHabitUrl, {}, config)
-                    .then(response => console.log(response))
-                    .catch(err => console.error(err))
+                .then(response => console.log(response))
+                .catch(err => console.error(err))
         }
     }
 

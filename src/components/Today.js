@@ -18,8 +18,6 @@ export default function Today() {
 
     require("dayjs/locale/pt-br")
 
-    const noHabitsConcluded = (userHabitsPercentage === 0)
-
     let currentDay = dayjs().locale('pt-BR').format(`dddd, DD/MM`)
 
     currentDay = setFirstLetterToUpper(currentDay)
@@ -31,20 +29,8 @@ export default function Today() {
             "Authorization": "Bearer " + userReceivedInfo.token
         }
     }
-    
-    let habitsConcludedAux = todayHabits.filter((habit) => {
-        if(habit.done) {
-            return true
-        }
-        return false
-    })
-    
-    habitsConcludedAux = habitsConcludedAux.map((habit) => {
-        return habit.name
-    })
 
-    
-    const [habitsConcluded, setHabitsConcluded] = useState([...habitsConcludedAux]);
+    const [habitsConcluded, setHabitsConcluded] = useState([]);
     console.log(habitsConcluded);
 
     function setFirstLetterToUpper(currentDay) {
@@ -54,17 +40,38 @@ export default function Today() {
         return currentDay
     }
 
+    const [noHabitsConcluded, setNoHabitsConcluded] = useState(true)
+
     useEffect(() => {
         const todayGetUrl = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today"
         axios.get(todayGetUrl, config)
             .then(res => {
                 setTodayHabits(res.data)
-                console.log(res.data)
+
+                let habitsConcludedAux = (res.data).filter((habit) => {
+                    if (habit.done) {
+                        return true
+                    }
+                    return false
+                })
+
+                habitsConcludedAux = habitsConcludedAux.map((habit) => {
+                    return habit.name
+                })
+
+                setHabitsConcluded([...habitsConcludedAux])
+
+                setUserHabitsPercentage((habitsConcludedAux.length / res.data.length) * 100)
+
+                setNoHabitsConcluded(habitsConcludedAux.length === 0)
+
             })
             .catch(err => {
                 console.log(err)
             })
     }, [])
+
+    console.log(userHabitsPercentage);
 
     return (
         <TodayWrapper>
