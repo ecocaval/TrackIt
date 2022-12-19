@@ -17,6 +17,7 @@ import trashCan from "./../assets/images/trash-can.png"
 export default function Habits() {
 
     const [addButtonWasClicked, setAddButtonWasClicked] = useState(false)
+    const [requestWasSent, setRequestWasSent] = useState(false)
     const [habitName, setHabitName] = useState('')
     const [selectedDays, setSelectedDays] = useState([])
     const weekDaysArray = [
@@ -55,7 +56,6 @@ export default function Habits() {
             weekDay: "sabado",
             weekDayNumber: 7,
         }]
-
     const { userHabits, setUserHabits } = useContext(HabitsContext)
     const { userReceivedInfo } = useContext(ReceivedInfoContext)
 
@@ -73,14 +73,21 @@ export default function Habits() {
     function saveHabit() {
         const postHabitUrl = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits"
 
+        setRequestWasSent(true)
+
         axios.post(postHabitUrl, newHabit, config)
             .then(response => {
                 console.log(response.data)
+                setAddButtonWasClicked(!addButtonWasClicked)
+                setSelectedDays([])
                 getHabits()
+                setRequestWasSent(false)
+                setHabitName("")
             })
-            .catch(err => console.log(err))
-
-        setAddButtonWasClicked(!addButtonWasClicked)
+            .catch(err => {
+                console.log(err)
+                alert("Seu hábito não foi criado! Tente novamente...")
+            })
     }
 
     function getHabits() {
@@ -91,9 +98,7 @@ export default function Habits() {
                 console.log(response.data)
                 setUserHabits(response.data)
             })
-            .catch(err => {
-                console.log(err)
-            })
+            .catch(err => console.log(err))
     }
 
     function deleteHabit(habitId) {
@@ -130,32 +135,39 @@ export default function Habits() {
                         +
                     </button>
                 </span>
-                {addButtonWasClicked ? (
-                    <HabitSection>
-                        <input
-                            type="text"
-                            value={habitName}
-                            onChange={(e) => setHabitName(e.currentTarget.value)}
-                            placeholder="nome do hábito"
-                        />
-                        <WeekDaysWrapper>
-                            {weekDaysArray.map((day, i) => (
-                                <WeekDayButton
-                                    key={i}
-                                    day={day}
-                                    selectedDays={selectedDays}
-                                    setSelectedDays={setSelectedDays}
-                                />
-                            ))}
-                        </WeekDaysWrapper>
-                        <ButtonsWrapper>
-                            <CancelButton>Cancelar</CancelButton>
-                            <SaveButton onClick={saveHabit}>
-                                Salvar
-                            </SaveButton>
-                        </ButtonsWrapper>
-                    </HabitSection>
-                ) : (<></>)}
+                <HabitSection addButtonWasClicked={addButtonWasClicked}>
+                    <input
+                        type="text"
+                        value={habitName}
+                        onChange={(e) => setHabitName(e.currentTarget.value)}
+                        placeholder="nome do hábito"
+                        disabled={requestWasSent}
+                    />
+                    <WeekDaysWrapper>
+                        {weekDaysArray.map((day, i) => (
+                            <WeekDayButton
+                                key={i}
+                                day={day}
+                                selectedDays={selectedDays}
+                                setSelectedDays={setSelectedDays}
+                                requestWasSent={requestWasSent}
+                                disabled={requestWasSent}
+                            />
+                        ))}
+                    </WeekDaysWrapper>
+                    <ButtonsWrapper>
+                        <CancelButton
+                            onClick={() => {
+                                setAddButtonWasClicked(!addButtonWasClicked)
+                            }}
+                        >
+                            Cancelar
+                        </CancelButton>
+                        <SaveButton onClick={saveHabit}>
+                            Salvar
+                        </SaveButton>
+                    </ButtonsWrapper>
+                </HabitSection>
                 {!userHabits[0] && (
                     <NoHabitsText>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</NoHabitsText>
                 )}
@@ -212,7 +224,7 @@ const HabitsSection = styled.section`
             height: 35px;
             border: none;
             background: #52B6FF;
-            border-radius: 4.63636px;
+            border-radius: 5px;
             font-family: 'Lexend Deca';
             font-size: 27px;
             text-align: center;
@@ -222,7 +234,7 @@ const HabitsSection = styled.section`
 `
 
 const HabitSection = styled.section`
-    display: flex;
+    display: ${props => props.addButtonWasClicked ? "flex" : "none"};
     box-sizing: border-box;
     flex-direction: column;
     align-items: center;

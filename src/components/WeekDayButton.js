@@ -1,9 +1,13 @@
 import { useState } from "react"
 import styled from "styled-components"
 
-export default function WeekDayButton({day, selectedDays, setSelectedDays}) {
+export default function WeekDayButton({day, selectedDays, setSelectedDays, requestWasSent}) {
     
     const [weekButtonClicked, setWeekButtonClicked] = useState(false)
+
+    if(requestWasSent && weekButtonClicked) {
+        setWeekButtonClicked(false)
+    }
 
     return (
         <StyledButton 
