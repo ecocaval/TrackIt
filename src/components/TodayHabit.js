@@ -50,7 +50,10 @@ export default function TodayHabit({ todayHabitInfo, habitsQuantity, habitsConcl
     return (
         <TodayHabitWrapper>
             <span>
-                <HabitInfo habitWasConcluded={habitWasConcluded}>
+                <HabitInfo
+                    habitWasConcluded={habitWasConcluded}
+                    isEqual={todayHabitInfo.currentSequence === todayHabitInfo.highestSequence}
+                >
                     <h3>{todayHabitInfo.name}</h3>
                     <span>
                         <p>Sequencia atual:</p>
@@ -102,7 +105,7 @@ const HabitInfo = styled.div`
         }
         > p:nth-child(2) {
             margin-left: 5px;
-            color: ${props => props.habitWasConcluded ? "#8FC549" : "#666666"};
+            color: ${props => props.habitWasConcluded && props.isEqual ? "#8FC549" : "#666666"};
         }
     }
 
