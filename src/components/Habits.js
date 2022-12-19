@@ -12,6 +12,8 @@ import UserMenu from "./UserMenu"
 import { HabitsContext } from "../Contexts/HabitsContext"
 import { ReceivedInfoContext } from "../Contexts/ReceivedInfoContext"
 
+import trashCan from "./../assets/images/trash-can.png"
+
 export default function Habits() {
 
     const [addButtonWasClicked, setAddButtonWasClicked] = useState(false)
@@ -61,7 +63,7 @@ export default function Habits() {
         name: habitName,
         days: selectedDays
     }
-    
+
     const config = {
         headers: {
             "Authorization": "Bearer " + userReceivedInfo.token
@@ -92,6 +94,26 @@ export default function Habits() {
             .catch(err => {
                 console.log(err)
             })
+    }
+
+    function deleteHabit(habitId) {
+        console.log(habitId)
+
+        if (window.confirm('Você realmente deseja deletar este hábito?')) {
+
+            const deleteHabit = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/" + habitId
+
+            console.log(deleteHabit)
+            console.log(habitId)
+
+            axios.delete(deleteHabit, config)
+                .then(response => {
+                    console.log(response)
+                    getHabits()
+                })
+                .catch(err => console.log(err))
+
+        }
     }
 
     useEffect(getHabits, [])
@@ -142,7 +164,13 @@ export default function Habits() {
             {userHabits[0] && (
                 userHabits.map((habit) => (
                     <Habit>
-                        <p>{habit.name}</p>
+                        <header>
+                            <p>{habit.name}</p>
+                            <img
+                                src={trashCan}
+                                onClick={() => deleteHabit(habit.id)}
+                            />
+                        </header>
                         {weekDaysArray.map((day, i) => (
                             <WeekDayDiv
                                 key={i}
@@ -278,10 +306,18 @@ const Habit = styled.div`
     margin: 0px auto;
     margin-bottom: 20px;
     padding: 15px;
-    > p {
-        font-family: 'Lexend Deca';
-        margin-bottom: 10px;
-        font-size: 20px;
-        color: #666666;
+    > header {
+        display: flex;
+        justify-content: space-between;
+        > p {
+            font-family: 'Lexend Deca';
+            margin-bottom: 10px;
+            font-size: 20px;
+            color: #666666;
+        }
+        > img {
+            width: 13px;
+            height: 15px;
+        }
     }
 `

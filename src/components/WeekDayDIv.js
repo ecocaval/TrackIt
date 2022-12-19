@@ -5,9 +5,6 @@ export default function WeekDayDiv({day, habitDays}) {
     
     const [weekButtonClicked, setWeekButtonClicked] = useState(false)
 
-    console.log(day);
-    console.log(habitDays);
-
     if(habitDays.includes(day.weekDayNumber) && weekButtonClicked===false) {
         setWeekButtonClicked(true)
     }
