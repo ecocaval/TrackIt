@@ -1,5 +1,5 @@
 // libraries
-import { useState, useContext } from "react"
+import { useState, useContext, useEffect } from "react"
 import styled from "styled-components"
 import axios from "axios"
 
@@ -57,31 +57,19 @@ export default function Habits() {
     const { userHabits, setUserHabits } = useContext(HabitsContext)
     const { userReceivedInfo } = useContext(ReceivedInfoContext)
 
+    const newHabit = {
+        name: habitName,
+        days: selectedDays
+    }
+    
+    const config = {
+        headers: {
+            "Authorization": "Bearer " + userReceivedInfo.token
+        }
+    }
+
     function saveHabit() {
-        const newHabit = {
-            name: habitName,
-            days: selectedDays
-        }
-        
-        const config = {
-            headers: {
-                "Authorization": "Bearer " + userReceivedInfo.token
-            }
-        }
-
         const postHabitUrl = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits"
-
-        function getHabits() {
-            const getHabitUrl = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits"
-
-            axios.get(getHabitUrl, config)
-                .then(response => {
-                    console.log(response.data)
-                })
-                .catch(err => {
-                    console.log(err)
-                })
-        }
 
         axios.post(postHabitUrl, newHabit, config)
             .then(response => {
@@ -90,9 +78,23 @@ export default function Habits() {
             })
             .catch(err => console.log(err))
 
-        // setUserHabits([...userHabits, newHabit])
         setAddButtonWasClicked(!addButtonWasClicked)
     }
+
+    function getHabits() {
+        const getHabitUrl = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits"
+
+        axios.get(getHabitUrl, config)
+            .then(response => {
+                console.log(response.data)
+                setUserHabits(response.data)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
+
+    useEffect(getHabits, [])
 
     console.log(userHabits)
 
@@ -141,10 +143,11 @@ export default function Habits() {
                 userHabits.map((habit) => (
                     <Habit>
                         <p>{habit.name}</p>
-                        {habit.selectedDays.map((day, i) => (
+                        {weekDaysArray.map((day, i) => (
                             <WeekDayDiv
                                 key={i}
                                 day={day}
+                                habitDays={habit.days}
                             />
                         ))}
                     </Habit>
@@ -155,13 +158,16 @@ export default function Habits() {
 }
 
 const HabitsWrapper = styled.main`
-    margin-top: 71px;
+    margin-top: 70px;
+    height: calc(100% - 140px);
+    overflow-y: scroll;
 `
 
 const HabitsSection = styled.section`
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-bottom: 20px;
     > span {
         width: 80%;
         display: flex;
@@ -171,6 +177,7 @@ const HabitsSection = styled.section`
             font-family: 'Lexend Deca';
             font-size: 23px;
             color: #126BA5;
+            margin: auto 0px;
         }
         > button {
             width: 40px;
@@ -263,8 +270,18 @@ const SaveButton = styled.button`
 `
 
 const Habit = styled.div`
+    box-sizing: border-box;
     width: 340px;
     height: 91px;
     background: #FFFFFF;
     border-radius: 5px;
+    margin: 0px auto;
+    margin-bottom: 20px;
+    padding: 15px;
+    > p {
+        font-family: 'Lexend Deca';
+        margin-bottom: 10px;
+        font-size: 20px;
+        color: #666666;
+    }
 `
