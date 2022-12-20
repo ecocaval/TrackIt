@@ -9,8 +9,6 @@ import checkMark from "./../assets/images/check-mark.png"
 
 export default function TodayHabit({ todayHabitInfo, habitsQuantity, habitsConcluded, setHabitsConcluded }) {
 
-    console.log(todayHabitInfo)
-
     const { config } = useContext(ReceivedInfoContext)
 
     const { setUserHabitsPercentage } = useContext(HabitsContext)
@@ -28,7 +26,6 @@ export default function TodayHabit({ todayHabitInfo, habitsQuantity, habitsConcl
                 setHabitsConcluded([...habitsConcluded, todayHabitInfo.name])
                 setUserHabitsPercentage(((habitsConcluded.length + 1) / habitsQuantity) * 100)
                 axios.post(checkHabitUrl, {}, config)
-                    .then(response => console.log(response))
                     .catch(err => console.error(err))
             }
         } else {
@@ -42,7 +39,6 @@ export default function TodayHabit({ todayHabitInfo, habitsQuantity, habitsConcl
             setHabitsConcluded(newHabitsConcluded)
             setUserHabitsPercentage(((habitsConcluded.length - 1) / habitsQuantity) * 100)
             axios.post(uncheckHabitUrl, {}, config)
-                .then(response => console.log(response))
                 .catch(err => console.error(err))
         }
     }

@@ -2,12 +2,14 @@
 import { useState, useContext, useEffect } from "react"
 import styled from "styled-components"
 import axios from "axios"
+import { ThreeDots } from "react-loader-spinner"
 
 // components
 import WeekDayButton from "./WeekDayButton"
 import WeekDayDiv from "./WeekDayDIv"
 import UserHeader from "./UserHeader"
 import UserMenu from "./UserMenu"
+import Loader from "./Loader"
 
 import { HabitsContext } from "../Contexts/HabitsContext"
 import { ReceivedInfoContext } from "../Contexts/ReceivedInfoContext"
@@ -16,6 +18,7 @@ import trashCan from "./../assets/images/trash-can.png"
 
 export default function Habits() {
 
+    const [canBeLoaded, setCanBeLoaded] = useState(false)
     const [addButtonWasClicked, setAddButtonWasClicked] = useState(false)
     const [requestWasSent, setRequestWasSent] = useState(false)
     const [habitName, setHabitName] = useState('')
@@ -77,15 +80,12 @@ export default function Habits() {
 
         axios.post(postHabitUrl, newHabit, config)
             .then(response => {
-                setAddButtonWasClicked(!addButtonWasClicked)
-                setSelectedDays([])
                 getHabits()
-                setRequestWasSent(false)
-                setHabitName("")
             })
             .catch(err => {
                 console.log(err)
                 alert("Seu hábito não foi criado! Tente novamente...")
+                setRequestWasSent(false)
             })
     }
 
@@ -95,8 +95,17 @@ export default function Habits() {
         axios.get(getHabitUrl, config)
             .then(response => {
                 setUserHabits(response.data)
+                setRequestWasSent(false)
+                setHabitName("")
+                setSelectedDays([])
+                if (addButtonWasClicked) {
+                    setAddButtonWasClicked(!addButtonWasClicked)
+                }
+                setCanBeLoaded(true)
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                console.log(err)
+            })
     }
 
     function deleteHabit(habitId) {
@@ -106,10 +115,7 @@ export default function Habits() {
             const deleteHabitUrl = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/" + habitId
 
             axios.delete(deleteHabitUrl, config)
-                .then(response => {
-                    console.log(response)
-                    getHabits()
-                })
+                .then(response => getHabits())
                 .catch(err => console.log(err))
 
         }
@@ -120,83 +126,94 @@ export default function Habits() {
     return (
         <HabitsWrapper>
             <UserHeader />
-            <HabitsSection>
-                <span>
-                    <p>Meus hábitos</p>
-                    <button
-                        data-test="habit-create-btn"
-                        onClick={() => setAddButtonWasClicked(!addButtonWasClicked)}
+            {canBeLoaded ? (<>
+                <HabitsSection>
+                    <span>
+                        <p>Meus hábitos</p>
+                        <button
+                            data-test="habit-create-btn"
+                            onClick={() => setAddButtonWasClicked(!addButtonWasClicked)}
+                        >
+                            +
+                        </button>
+                    </span>
+                    <HabitSection
+                        addButtonWasClicked={addButtonWasClicked}
+                        data-test="habit-create-container"
                     >
-                        +
-                    </button>
-                </span>
-                <HabitSection
-                    addButtonWasClicked={addButtonWasClicked}
-                    data-test="habit-create-container"
-                >
-                    <input
-                        type="text"
-                        value={habitName}
-                        onChange={(e) => setHabitName(e.currentTarget.value)}
-                        placeholder="nome do hábito"
-                        disabled={requestWasSent}
-                        data-test="habit-name-input"
-                    />
-                    <WeekDaysWrapper>
-                        {weekDaysArray.map((day, i) => (
-                            <WeekDayButton
-                                key={i}
-                                day={day}
-                                selectedDays={selectedDays}
-                                setSelectedDays={setSelectedDays}
-                                requestWasSent={requestWasSent}
-                                disabled={requestWasSent}
-                            />
-                        ))}
-                    </WeekDaysWrapper>
-                    <ButtonsWrapper>
-                        <CancelButton
-                            data-test="habit-create-cancel-btn"
-                            onClick={() => {
-                                setAddButtonWasClicked(!addButtonWasClicked)
-                            }}
-                        >
-                            Cancelar
-                        </CancelButton>
-                        <SaveButton
-                            data-test="habit-create-save-btn"
-                            onClick={saveHabit}
-                        >
-                            Salvar
-                        </SaveButton>
-                    </ButtonsWrapper>
-                </HabitSection>
-                {!userHabits[0] && (
-                    <NoHabitsText>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</NoHabitsText>
+                        <input
+                            type="text"
+                            value={habitName}
+                            onChange={(e) => setHabitName(e.currentTarget.value)}
+                            placeholder="nome do hábito"
+                            disabled={requestWasSent}
+                            data-test="habit-name-input"
+                        />
+                        <WeekDaysWrapper>
+                            {weekDaysArray.map((day, i) => (
+                                <WeekDayButton
+                                    key={i}
+                                    day={day}
+                                    selectedDays={selectedDays}
+                                    setSelectedDays={setSelectedDays}
+                                    requestWasSent={requestWasSent}
+                                    disabled={requestWasSent}
+                                />
+                            ))}
+                        </WeekDaysWrapper>
+                        <ButtonsWrapper>
+                            <CancelButton
+                                data-test="habit-create-cancel-btn"
+                                onClick={() => {
+                                    setAddButtonWasClicked(!addButtonWasClicked)
+                                }}
+                            >
+                                Cancelar
+                            </CancelButton>
+                            <SaveButton
+                                data-test="habit-create-save-btn"
+                                onClick={saveHabit}
+                            >
+                                {requestWasSent ? <ThreeDots
+                                    height="30"
+                                    width="70"
+                                    radius="9"
+                                    color="#FFFFFF"
+                                    ariaLabel="three-dots-loading"
+                                    wrapperStyle={{}}
+                                    wrapperClassName=""
+                                    visible={true}
+                                /> : "Salvar"}
+                            </SaveButton>
+                        </ButtonsWrapper>
+                    </HabitSection>
+                    {!userHabits[0] && (
+                        <NoHabitsText>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</NoHabitsText>
+                    )}
+                </HabitsSection>
+                {userHabits[0] && (
+                    userHabits.map((habit, i) => (
+                        <Habit data-test="habit-container" key={i} >
+                            <header>
+                                <p data-test="habit-name">{habit.name}</p>
+                                <img
+                                    data-test="habit-delete-btn"
+                                    src={trashCan}
+                                    onClick={() => deleteHabit(habit.id)}
+                                />
+                            </header>
+                            {weekDaysArray.map((day, i) => (
+                                <WeekDayDiv
+                                    key={i}
+                                    day={day}
+                                    habitDays={habit.days}
+                                />
+                            ))}
+                        </Habit>
+                    ))
                 )}
-                <UserMenu />
-            </HabitsSection>
-            {userHabits[0] && (
-                userHabits.map((habit,i) => (
-                    <Habit data-test="habit-container" key={i} >
-                        <header>
-                            <p data-test="habit-name">{habit.name}</p>
-                            <img
-                                data-test="habit-delete-btn" 
-                                src={trashCan}
-                                onClick={() => deleteHabit(habit.id)}
-                            />
-                        </header>
-                        {weekDaysArray.map((day, i) => (
-                            <WeekDayDiv
-                                key={i}
-                                day={day}
-                                habitDays={habit.days}
-                            />
-                        ))}
-                    </Habit>
-                ))
-            )}
+            </>) : <Loader/>}
+            <UserMenu />
         </HabitsWrapper>
     )
 }
@@ -205,6 +222,7 @@ const HabitsWrapper = styled.main`
     margin-top: 70px;
     height: calc(100% - 140px);
     overflow-y: scroll;
+    background: #F2F2F2;
 `
 
 const HabitsSection = styled.section`
@@ -274,7 +292,7 @@ const HabitSection = styled.section`
 
 const WeekDaysWrapper = styled.span`
     margin: 20px 0;
-    margin-left: -90px;
+    margin-left: -55px;
 `
 
 const NoHabitsText = styled.text`
@@ -286,7 +304,7 @@ const NoHabitsText = styled.text`
 `
 
 const ButtonsWrapper = styled.span`
-    width: fit-content;
+    display: flex;
 `
 
 const CancelButton = styled.button`
@@ -300,6 +318,9 @@ const CancelButton = styled.button`
 `
 
 const SaveButton = styled.button`
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 84px;
     height: 35px;
     background: #52B6FF;

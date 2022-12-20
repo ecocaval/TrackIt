@@ -69,7 +69,7 @@ function App() {
 }
 
 const StyledMain = styled.main`
-  background: #E5E5E5;
+  background: #FFFFFF;
   height: 100vh;
 `
 

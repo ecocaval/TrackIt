@@ -2,6 +2,7 @@
 import UserHeader from "./UserHeader"
 import UserMenu from "./UserMenu"
 import TodayHabit from "./TodayHabit"
+import Loader from "./Loader"
 
 import styled from "styled-components"
 import dayjs from "dayjs"
@@ -31,7 +32,6 @@ export default function Today() {
     }
 
     const [habitsConcluded, setHabitsConcluded] = useState([]);
-    console.log(habitsConcluded);
 
     function setFirstLetterToUpper(currentDay) {
         currentDay = Array.from(currentDay)
@@ -40,6 +40,7 @@ export default function Today() {
         return currentDay
     }
 
+    const [infoWasReceived, setInfoWasReceived] = useState(false)
     const [noHabitsConcluded, setNoHabitsConcluded] = useState(true)
 
     useEffect(() => {
@@ -65,41 +66,45 @@ export default function Today() {
 
                 setNoHabitsConcluded(habitsConcludedAux.length === 0)
 
+                setInfoWasReceived(true)
+
             })
             .catch(err => {
                 console.log(err)
             })
     }, [])
 
-    console.log(userHabitsPercentage);
-
     return (
         <TodayWrapper>
             <UserHeader />
-            <TodaySection noHabitsConcluded={noHabitsConcluded}>
-                <TodayHeader>
-                    <h2 data-test="today">{currentDay}</h2>
-                    <p data-test="today-counter">{noHabitsConcluded ? ("Nenhum hábito concluído ainda") : (`${userHabitsPercentage.toFixed(0)}% dos hábitos concluídos`)}</p>
-                </TodayHeader>
-                <TodayHabitsSection>
-                    {todayHabits[0] !== undefined && (todayHabits.map((todayHabit, i) => (
-                        <div key={i}>
-                            <TodayHabit
-                                todayHabitInfo={todayHabit}
-                                habitsQuantity={todayHabits.length}
-                                habitsConcluded={habitsConcluded}
-                                setHabitsConcluded={setHabitsConcluded}
-                            />
-                        </div>
-                    )))}
-                </TodayHabitsSection>
-            </TodaySection>
+            {infoWasReceived ? (
+                <TodaySection noHabitsConcluded={noHabitsConcluded}>
+                    <TodayHeader>
+                        <h2 data-test="today">{currentDay}</h2>
+                        <p data-test="today-counter">{noHabitsConcluded ? ("Nenhum hábito concluído ainda") : (`${userHabitsPercentage.toFixed(0)}% dos hábitos concluídos`)}</p>
+                    </TodayHeader>
+                    <TodayHabitsSection>
+                        {todayHabits[0] !== undefined && (todayHabits.map((todayHabit, i) => (
+                            <div key={i}>
+                                <TodayHabit
+                                    todayHabitInfo={todayHabit}
+                                    habitsQuantity={todayHabits.length}
+                                    habitsConcluded={habitsConcluded}
+                                    setHabitsConcluded={setHabitsConcluded}
+                                />
+                            </div>
+                        )))}
+                    </TodayHabitsSection>
+                </TodaySection>) : (
+                    <Loader/>
+            )}
             <UserMenu />
         </TodayWrapper>
     )
 }
 
 const TodayWrapper = styled.main`
+    background: #F2F2F2;
     margin-top: 70px;
     height: calc(100% - 140px);
     overflow-y: scroll;
@@ -131,6 +136,6 @@ const TodayHeader = styled.div`
 
 const TodayHabitsSection = styled.section`
     > div {
-        margin-bottom: 20px;
+        margin-bottom: 10px;
     }
 `

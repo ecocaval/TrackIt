@@ -25,4 +25,5 @@ const StyledButton = styled.button`
     border-radius: 5px;
     font-size: 20px;
     color: ${props => props.weekButtonClicked ? "#FFFFFF" : "#DBDBDB"};
+    margin-right: 5px;
 `

@@ -24,6 +24,7 @@ export default function WeekDayButton({ day, selectedDays, setSelectedDays, requ
 
 const StyledButton = styled.button`
     font-family: 'Lexend Deca';
+    margin-right: 5px;
     width: 30px;
     height: 30px;
     background: ${props => props.weekButtonClicked ? "#CFCFCF" : "#FFFFFF"};

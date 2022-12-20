@@ -21,6 +21,7 @@ const RecordWrapper = styled.main`
     margin-top: 70px;
     height: calc(100% - 140px);
     overflow-y: scroll;
+    background: #F2F2F2;
 `
 
 const RecordHeader = styled.div`
