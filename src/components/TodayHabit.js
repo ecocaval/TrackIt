@@ -24,23 +24,30 @@ export default function TodayHabit({ todayHabitInfo, habitsQuantity, habitsConcl
         const uncheckHabitUrl = `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${todayHabitInfo.id}/uncheck`
 
         if (!habitWasConcluded) {
+
             setHabitWasConcluded(!habitWasConcluded)
+            
             if (!habitsConcluded.includes(todayHabitInfo.name)) {
                 setHabitsConcluded([...habitsConcluded, todayHabitInfo.name])
                 setUserHabitsPercentage(((habitsConcluded.length + 1) / habitsQuantity) * 100)
+            
                 axios.post(checkHabitUrl, {}, config)
                     .catch(err => console.error(err))
             }
         } else {
+            
             setHabitWasConcluded(!habitWasConcluded)
+            
             const newHabitsConcluded = habitsConcluded.filter((habit) => {
                 if (habit === todayHabitInfo.name) {
                     return false
                 }
                 return true
             })
+            
             setHabitsConcluded(newHabitsConcluded)
             setUserHabitsPercentage(((habitsConcluded.length - 1) / habitsQuantity) * 100)
+            
             axios.post(uncheckHabitUrl, {}, config)
                 .catch(err => console.error(err))
         }
