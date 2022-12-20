@@ -168,6 +168,7 @@ export default function Habits() {
                         <ButtonsWrapper>
                             <CancelButton
                                 data-test="habit-create-cancel-btn"
+                                disabled={requestWasSent}
                                 onClick={() => {
                                     setAddButtonWasClicked(!addButtonWasClicked)
                                 }}
@@ -177,6 +178,7 @@ export default function Habits() {
                             <SaveButton
                                 data-test="habit-create-save-btn"
                                 onClick={saveHabit}
+                                disabled={requestWasSent}
                             >
                                 {requestWasSent ? <ThreeDots
                                     height="30"

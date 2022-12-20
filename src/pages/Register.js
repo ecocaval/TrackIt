@@ -85,6 +85,7 @@ export default function Register() {
                 <button
                     type="submit"
                     data-test="signup-btn"
+                    disabled={sentRequestRegister}
                 >
                     {sentRequestRegister ? <ThreeDots
                         height="80"
