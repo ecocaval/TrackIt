@@ -14,6 +14,7 @@ export default function WeekDayButton({ day, selectedDays, setSelectedDays, requ
     return (
         <StyledButton
             data-test="habit-day"
+            disabled={requestWasSent}
             weekButtonClicked={weekButtonClicked}
             onClick={() => {
                 setWeekButtonClicked(!weekButtonClicked)

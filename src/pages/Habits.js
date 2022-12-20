@@ -137,6 +137,7 @@ export default function Habits() {
                         <button
                             data-test="habit-create-btn"
                             onClick={() => setAddButtonWasClicked(!addButtonWasClicked)}
+                            disabled={requestWasSent}
                         >
                             +
                         </button>
@@ -161,7 +162,6 @@ export default function Habits() {
                                     selectedDays={selectedDays}
                                     setSelectedDays={setSelectedDays}
                                     requestWasSent={requestWasSent}
-                                    disabled={requestWasSent}
                                 />
                             ))}
                         </WeekDaysWrapper>
