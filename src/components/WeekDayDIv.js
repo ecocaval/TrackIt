@@ -3,16 +3,19 @@ import { useState } from "react"
 // libraries
 import styled from "styled-components"
 
-export default function WeekDayDiv({day, habitDays}) {
-    
+export default function WeekDayDiv({ day, habitDays }) {
+
     const [weekButtonClicked, setWeekButtonClicked] = useState(false)
 
-    if(habitDays.includes(day.weekDayNumber) && weekButtonClicked===false) {
+    if (habitDays.includes(day.weekDayNumber) && weekButtonClicked === false) {
         setWeekButtonClicked(true)
     }
 
     return (
-        <StyledButton weekButtonClicked={weekButtonClicked}>
+        <StyledButton
+            data-test="habit-day"
+            weekButtonClicked={weekButtonClicked}
+        >
             {day.initialLeter}
         </StyledButton>
     )
