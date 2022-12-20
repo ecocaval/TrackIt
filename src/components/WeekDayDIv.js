@@ -1,4 +1,6 @@
 import { useState } from "react"
+
+// libraries
 import styled from "styled-components"
 
 export default function WeekDayDiv({day, habitDays}) {

@@ -1,26 +1,30 @@
 // components
-import UserHeader from "./UserHeader"
-import UserMenu from "./UserMenu"
-import TodayHabit from "./TodayHabit"
-import Loader from "./Loader"
+import UserHeader from "../components/UserHeader"
+import UserMenu from "../components/UserMenu"
+import TodayHabit from "../components/TodayHabit"
+import Loader from "../components/Loader"
 
+// libraries
+import { useContext, useEffect, useState } from "react"
 import styled from "styled-components"
 import dayjs from "dayjs"
+import axios from "axios"
 
+// contexts
 import { HabitsContext } from "../Contexts/HabitsContext"
 import { ReceivedInfoContext } from "../Contexts/ReceivedInfoContext"
-import { useContext, useEffect, useState } from "react"
-import axios from "axios"
 
 export default function Today() {
 
-    const { userHabitsPercentage, setUserHabitsPercentage } = useContext(HabitsContext)
-    const [todayHabits, setTodayHabits] = useState([])
-
     require("dayjs/locale/pt-br")
 
-    let currentDay = dayjs().locale('pt-BR').format(`dddd, DD/MM`)
+    const { userHabitsPercentage, setUserHabitsPercentage } = useContext(HabitsContext)
+    const [todayHabits, setTodayHabits] = useState([])
+    const [habitsConcluded, setHabitsConcluded] = useState([]);
+    const [infoWasReceived, setInfoWasReceived] = useState(false)
+    const [noHabitsConcluded, setNoHabitsConcluded] = useState(true)
 
+    let currentDay = dayjs().locale('pt-BR').format(`dddd, DD/MM`)
     currentDay = setFirstLetterToUpper(currentDay)
 
     const { userReceivedInfo } = useContext(ReceivedInfoContext)
@@ -31,7 +35,6 @@ export default function Today() {
         }
     }
 
-    const [habitsConcluded, setHabitsConcluded] = useState([]);
 
     function setFirstLetterToUpper(currentDay) {
         currentDay = Array.from(currentDay)
@@ -40,8 +43,6 @@ export default function Today() {
         return currentDay
     }
 
-    const [infoWasReceived, setInfoWasReceived] = useState(false)
-    const [noHabitsConcluded, setNoHabitsConcluded] = useState(true)
 
     useEffect(() => {
         const todayGetUrl = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today"
@@ -96,7 +97,7 @@ export default function Today() {
                         )))}
                     </TodayHabitsSection>
                 </TodaySection>) : (
-                    <Loader/>
+                <Loader />
             )}
             <UserMenu />
         </TodayWrapper>

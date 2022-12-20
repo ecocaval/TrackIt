@@ -5,15 +5,17 @@ import axios from "axios"
 import { ThreeDots } from "react-loader-spinner"
 
 // components
-import WeekDayButton from "./WeekDayButton"
-import WeekDayDiv from "./WeekDayDIv"
-import UserHeader from "./UserHeader"
-import UserMenu from "./UserMenu"
-import Loader from "./Loader"
+import WeekDayButton from "../components/WeekDayButton"
+import WeekDayDiv from "../components/WeekDayDIv"
+import UserHeader from "../components/UserHeader"
+import UserMenu from "../components/UserMenu"
+import Loader from "../components/Loader"
 
+// contexts
 import { HabitsContext } from "../Contexts/HabitsContext"
 import { ReceivedInfoContext } from "../Contexts/ReceivedInfoContext"
 
+// images
 import trashCan from "./../assets/images/trash-can.png"
 
 export default function Habits() {
@@ -23,6 +25,10 @@ export default function Habits() {
     const [requestWasSent, setRequestWasSent] = useState(false)
     const [habitName, setHabitName] = useState('')
     const [selectedDays, setSelectedDays] = useState([])
+    
+    const { userHabits, setUserHabits } = useContext(HabitsContext)
+    const { userReceivedInfo } = useContext(ReceivedInfoContext)
+
     const weekDaysArray = [
         {
             initialLeter: 'D',
@@ -59,8 +65,6 @@ export default function Habits() {
             weekDay: "sabado",
             weekDayNumber: 7,
         }]
-    const { userHabits, setUserHabits } = useContext(HabitsContext)
-    const { userReceivedInfo } = useContext(ReceivedInfoContext)
 
     const newHabit = {
         name: habitName,

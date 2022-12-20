@@ -1,26 +1,25 @@
 // libraries
-import styled from "styled-components"
 import { useState, useContext } from "react"
 import { Link, useNavigate } from "react-router-dom"
+import styled from "styled-components"
 import { ThreeDots } from 'react-loader-spinner'
-
-// components
-import trackItLogo from "../assets/images/trackItLogo.png"
 import axios from "axios"
 
-//contexts
-import { ReceivedInfoContext } from "../Contexts/ReceivedInfoContext"
+// images
+import trackItLogo from "../assets/images/trackItLogo.png"
 
+// contexts
+import { ReceivedInfoContext } from "../Contexts/ReceivedInfoContext"
 
 export default function Login() {
 
-      // login page
+    const navigate = useNavigate()
+
     const [userLoginLogin, setUserLoginLogin] = useState('')
     const [userPasswordLogin, setUserPasswordLogin] = useState('')
     const [sentRequestLogin, setSentRequestLogin] = useState(false)
+    
     const { setUserReceivedInfo } = useContext(ReceivedInfoContext)
-
-    const navigate = useNavigate()
 
     function sendLogin(e) {
         e.preventDefault()
@@ -40,7 +39,7 @@ export default function Login() {
                 setSentRequestLogin(false)
                 navigate("/hoje") // CHANGE TO HOJE AFTER
             })
-            .catch(err => {
+            .catch(() => {
                 alert("Seu login não foi encontrado... Tente novamente")
                 setSentRequestLogin(false)
             })

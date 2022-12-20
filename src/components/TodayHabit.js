@@ -1,10 +1,13 @@
+// libraries
 import axios from "axios";
 import { useContext, useState } from "react";
 import styled from "styled-components"
 
+// contexts
 import { HabitsContext } from "../Contexts/HabitsContext";
 import { ReceivedInfoContext } from "../Contexts/ReceivedInfoContext";
 
+// images
 import checkMark from "./../assets/images/check-mark.png"
 
 export default function TodayHabit({ todayHabitInfo, habitsQuantity, habitsConcluded, setHabitsConcluded }) {

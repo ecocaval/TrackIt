@@ -5,11 +5,11 @@ import styled from 'styled-components';
 
 //components
 import GlobalStyle from './styles/GlobalStyle';
-import Login from './components/Login';
-import Register from './components/Register';
-import Habits from './components/Habits';
-import Records from './components/Records';
-import Today from './components/Today';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Habits from './pages/Habits';
+import Records from './pages/Records';
+import Today from './pages/Today';
 
 // contexts
 import { ReceivedInfoContext } from './Contexts/ReceivedInfoContext';

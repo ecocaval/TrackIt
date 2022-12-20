@@ -1,8 +1,9 @@
-// components
+// libraries
 import styled from "styled-components"
-import UserHeader from "./UserHeader"
-import UserMenu from "./UserMenu"
 
+// components
+import UserHeader from "../components/UserHeader"
+import UserMenu from "../components/UserMenu"
 
 export default function Record() {
     return(

@@ -8,13 +8,10 @@ import { ThreeDots } from 'react-loader-spinner'
 import trackItLogo from "../assets/images/trackItLogo.png"
 import axios from "axios"
 
-// contexts
-
 export default function Register() {
 
     const navigate = useNavigate()
 
-    // register page
     const [userLoginRegister, setUserLoginRegister] = useState('')
     const [userPasswordRegister, setUserPasswordRegister] = useState('')
     const [userNameRegister, setUserNameRegister] = useState('')
