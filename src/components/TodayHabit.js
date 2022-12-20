@@ -56,10 +56,10 @@ export default function TodayHabit({ todayHabitInfo, habitsQuantity, habitsConcl
                     <h3 data-test="today-habit-name">
                         {todayHabitInfo.name}
                     </h3>
-                    <span data-test="today-habit-sequence">
+                    <CurrentSequence data-test="today-habit-sequence">
                         <p>Sequencia atual:</p>
                         <p>{todayHabitInfo.currentSequence} dias</p>
-                    </span>
+                    </CurrentSequence>
                     <span data-test="today-habit-record">
                         <p>Seu recorde:</p>
                         <p>{todayHabitInfo.highestSequence} dias</p>
@@ -110,7 +110,20 @@ const HabitInfo = styled.div`
             color: ${props => props.habitWasConcluded && props.isEqual ? "#8FC549" : "#666666"};
         }
     }
+`
 
+const CurrentSequence = styled.span`
+    display: flex;
+    > p {
+        font-family: 'Lexend Deca';
+        font-size: 13px;
+        margin-top: 5px;
+        color: #666666;
+    }
+    > p:nth-child(2) {
+        margin-left: 5px;
+        color: ${props => props.habitWasConcluded ? "#8FC549" : "#666666"};
+    }
 `
 
 const CheckButton = styled.div`

@@ -33,37 +33,37 @@ export default function Habits() {
         {
             initialLeter: 'D',
             weekDay: "domingo",
-            weekDayNumber: 1,
+            weekDayNumber: 0,
         },
         {
             initialLeter: 'S',
             weekDay: "segunda",
-            weekDayNumber: 2,
+            weekDayNumber: 1,
         },
         {
             initialLeter: 'T',
             weekDay: "terca",
-            weekDayNumber: 3,
+            weekDayNumber: 2,
         },
         {
             initialLeter: 'Q',
             weekDay: "quarta",
-            weekDayNumber: 4,
+            weekDayNumber: 3,
         },
         {
             initialLeter: 'Q',
             weekDay: "quinta",
-            weekDayNumber: 5,
+            weekDayNumber: 4,
         },
         {
             initialLeter: 'S',
             weekDay: "sexta",
-            weekDayNumber: 6,
+            weekDayNumber: 5,
         },
         {
             initialLeter: 'S',
             weekDay: "sabado",
-            weekDayNumber: 7,
+            weekDayNumber: 6,
         }]
 
     const newHabit = {

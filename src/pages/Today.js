@@ -82,7 +82,7 @@ export default function Today() {
                 <TodaySection noHabitsConcluded={noHabitsConcluded}>
                     <TodayHeader>
                         <h2 data-test="today">{currentDay}</h2>
-                        <p data-test="today-counter">{(userHabitsPercentage===0) ? ("Nenhum hábito concluído ainda") : (`${userHabitsPercentage.toFixed(0)}% dos hábitos concluídos`)}</p>
+                        <p data-test="today-counter">{(!userHabitsPercentage) ? ("Nenhum hábito concluído ainda") : (`${userHabitsPercentage.toFixed(0)}% dos hábitos concluídos`)}</p>
                     </TodayHeader>
                     <TodayHabitsSection>
                         {todayHabits[0] !== undefined && (todayHabits.map((todayHabit, i) => (
