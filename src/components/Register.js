@@ -59,6 +59,7 @@ export default function Register() {
                     disabled={sentRequestRegister}
                     onChange={(e) => setUserLoginRegister(e.currentTarget.value)}
                     placeholder="email"
+                    data-test="email-input"
                 />
                 <input
                     value={userPasswordRegister}
@@ -66,6 +67,7 @@ export default function Register() {
                     disabled={sentRequestRegister}
                     onChange={(e) => setUserPasswordRegister(e.currentTarget.value)}
                     placeholder="senha"
+                    data-test="password-input"
                 />
                 <input
                     value={userNameRegister}
@@ -73,6 +75,7 @@ export default function Register() {
                     disabled={sentRequestRegister}
                     onChange={(e) => setUserNameRegister(e.currentTarget.value)}
                     placeholder="nome"
+                    data-test="user-name-input"
                 />
                 <input
                     value={userImageRegister}
@@ -80,8 +83,12 @@ export default function Register() {
                     disabled={sentRequestRegister}
                     onChange={(e) => setUserImageRegister(e.currentTarget.value)}
                     placeholder="foto"
+                    data-test="user-image-input"
                 />
-                <button type="submit">
+                <button
+                    type="submit"
+                    data-test="signup-btn"
+                >
                     {sentRequestRegister ? <ThreeDots
                         height="80"
                         width="80"
@@ -93,7 +100,7 @@ export default function Register() {
                         visible={true}
                     /> : "Cadastrar"}
                 </button>
-                <Link to="/">
+                <Link to="/" data-test="login-link" >
                     Já tem uma conta? Faça login!
                 </Link>
             </StyledForm>

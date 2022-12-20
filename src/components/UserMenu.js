@@ -12,10 +12,18 @@ export default function UserMenu() {
     const { userHabitsPercentage } = useContext(HabitsContext)
 
     return (
-        <UserMenuWrapper>
-            <Link to="/habitos">Hábitos</Link>
+        <UserMenuWrapper data-test="menu">
+            <Link
+                to="/habitos"
+                data-test="habit-link"
+            >
+                Hábitos
+            </Link>
             <TodayCircle>
-                <Link to="/hoje">
+                <Link
+                    to="/hoje"
+                    data-test="today-link"
+                >
                     <CircularProgressbarWithChildren
                         value={userHabitsPercentage}
                         styles={buildStyles({
@@ -27,11 +35,16 @@ export default function UserMenu() {
                             trailColor: 'rgba(0, 0, 0, 0)',
                             backgroundColor: '#52B6FF',
                         })}>
-                            <p>Hoje</p>
-                        </CircularProgressbarWithChildren>
+                        <p>Hoje</p>
+                    </CircularProgressbarWithChildren>
                 </Link>
             </TodayCircle>
-            <Link to="/historico">Histórico</Link>
+            <Link
+                to="/historico"
+                data-test="history-link"
+            >
+                Histórico
+            </Link>
         </UserMenuWrapper>
     )
 }

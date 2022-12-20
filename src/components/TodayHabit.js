@@ -48,23 +48,26 @@ export default function TodayHabit({ todayHabitInfo, habitsQuantity, habitsConcl
     }
 
     return (
-        <TodayHabitWrapper>
+        <TodayHabitWrapper data-test="today-habit-container">
             <span>
                 <HabitInfo
                     habitWasConcluded={habitWasConcluded}
                     isEqual={todayHabitInfo.currentSequence === todayHabitInfo.highestSequence}
                 >
-                    <h3>{todayHabitInfo.name}</h3>
-                    <span>
+                    <h3 data-test="today-habit-name">
+                        {todayHabitInfo.name}
+                    </h3>
+                    <span data-test="today-habit-sequence">
                         <p>Sequencia atual:</p>
                         <p>{todayHabitInfo.currentSequence} dias</p>
                     </span>
-                    <span>
+                    <span data-test="today-habit-record">
                         <p>Seu recorde:</p>
                         <p>{todayHabitInfo.highestSequence} dias</p>
                     </span>
                 </HabitInfo>
                 <CheckButton
+                    data-test="today-habit-check-btn"
                     habitWasConcluded={habitWasConcluded}
                     onClick={concludeHabit}
                 >

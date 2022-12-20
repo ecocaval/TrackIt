@@ -123,17 +123,24 @@ export default function Habits() {
             <HabitsSection>
                 <span>
                     <p>Meus hábitos</p>
-                    <button onClick={() => setAddButtonWasClicked(!addButtonWasClicked)}>
+                    <button
+                        data-test="habit-create-btn"
+                        onClick={() => setAddButtonWasClicked(!addButtonWasClicked)}
+                    >
                         +
                     </button>
                 </span>
-                <HabitSection addButtonWasClicked={addButtonWasClicked}>
+                <HabitSection
+                    addButtonWasClicked={addButtonWasClicked}
+                    data-test="habit-create-container"
+                >
                     <input
                         type="text"
                         value={habitName}
                         onChange={(e) => setHabitName(e.currentTarget.value)}
                         placeholder="nome do hábito"
                         disabled={requestWasSent}
+                        data-test="habit-name-input"
                     />
                     <WeekDaysWrapper>
                         {weekDaysArray.map((day, i) => (
@@ -149,13 +156,17 @@ export default function Habits() {
                     </WeekDaysWrapper>
                     <ButtonsWrapper>
                         <CancelButton
+                            data-test="habit-create-cancel-btn"
                             onClick={() => {
                                 setAddButtonWasClicked(!addButtonWasClicked)
                             }}
                         >
                             Cancelar
                         </CancelButton>
-                        <SaveButton onClick={saveHabit}>
+                        <SaveButton
+                            data-test="habit-create-save-btn"
+                            onClick={saveHabit}
+                        >
                             Salvar
                         </SaveButton>
                     </ButtonsWrapper>
@@ -166,11 +177,12 @@ export default function Habits() {
                 <UserMenu />
             </HabitsSection>
             {userHabits[0] && (
-                userHabits.map((habit) => (
-                    <Habit>
+                userHabits.map((habit,i) => (
+                    <Habit data-test="habit-container" key={i} >
                         <header>
-                            <p>{habit.name}</p>
+                            <p data-test="habit-name">{habit.name}</p>
                             <img
+                                data-test="habit-delete-btn" 
                                 src={trashCan}
                                 onClick={() => deleteHabit(habit.id)}
                             />

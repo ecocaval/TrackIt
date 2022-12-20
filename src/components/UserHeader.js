@@ -10,7 +10,7 @@ export default function UserHeader() {
     const { userReceivedInfo } = useContext(ReceivedInfoContext)
 
     return (
-        <UserHeaderWrapper>
+        <UserHeaderWrapper data-test="header">
             <p>TrackIt</p>
             <img src={userReceivedInfo.image}/>
         </UserHeaderWrapper>

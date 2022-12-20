@@ -1,21 +1,22 @@
 import { useState } from "react"
 import styled from "styled-components"
 
-export default function WeekDayButton({day, selectedDays, setSelectedDays, requestWasSent}) {
-    
+export default function WeekDayButton({ day, selectedDays, setSelectedDays, requestWasSent }) {
+
     const [weekButtonClicked, setWeekButtonClicked] = useState(false)
 
-    if(requestWasSent && weekButtonClicked) {
+    if (requestWasSent && weekButtonClicked) {
         setWeekButtonClicked(false)
     }
 
     return (
-        <StyledButton 
-            weekButtonClicked={weekButtonClicked} 
+        <StyledButton
+            data-test="habit-day"
+            weekButtonClicked={weekButtonClicked}
             onClick={() => {
-            setWeekButtonClicked(!weekButtonClicked)
-            setSelectedDays([...selectedDays, day.weekDayNumber])
-        }}>
+                setWeekButtonClicked(!weekButtonClicked)
+                setSelectedDays([...selectedDays, day.weekDayNumber])
+            }}>
             {day.initialLeter}
         </StyledButton>
     )

@@ -58,6 +58,7 @@ export default function Login() {
                     disabled={sentRequestLogin}
                     onChange={(e) => setUserLoginLogin(e.currentTarget.value)}
                     placeholder="email"
+                    data-test="email-input"
                 />
                 <input
                     value={userPasswordLogin}
@@ -65,10 +66,12 @@ export default function Login() {
                     disabled={sentRequestLogin}
                     onChange={(e) => setUserPasswordLogin(e.currentTarget.value)}
                     placeholder="senha"
+                    data-test="password-input"
                 />
                 <button
                     type="submit"
                     disabled={sentRequestLogin}
+                    data-test="login-btn"
                 >
                     {sentRequestLogin ? <ThreeDots
                         height="80"
@@ -81,7 +84,7 @@ export default function Login() {
                         visible={true}
                     /> : "Entrar"}
                 </button>
-                <Link to="/cadastro">
+                <Link to="/cadastro" data-test="signup-link">
                     Não tem uma conta? Cadastre-se!
                 </Link>
             </StyledForm>
