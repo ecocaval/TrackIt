@@ -10,9 +10,9 @@
 - [ReactJS](https://reactjs.org/)
 - [Styled-Components](https://styled-components.com/)
 - [Axios](https://axios-http.com/docs/intro)
-- [React Circular ProgressBar](https://react)
-- [React Loader Spinner](https://react)
-- [Dayjs](https://dayjs.)
+- [React Circular ProgressBar](https://www.npmjs.com/package/react-circular-progressbar)
+- [React Loader Spinner](https://mhnpd.github.io/react-loader-spinner/)
+- [Dayjs](https://day.js.org/)
 
 # 🏁 Let's go!
 
