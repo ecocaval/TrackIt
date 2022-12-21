@@ -7,7 +7,11 @@ import { ReceivedInfoContext } from "../Contexts/ReceivedInfoContext"
 
 export default function UserHeader() {
 
-    const { userReceivedInfo } = useContext(ReceivedInfoContext)
+    const { userReceivedInfo, setUserReceivedInfo } = useContext(ReceivedInfoContext)
+
+    if(userReceivedInfo.token === undefined) {
+        setUserReceivedInfo(JSON.parse(localStorage.getItem('userInfo')))
+    }
 
     return (
         <UserHeaderWrapper data-test="header">

@@ -5,14 +5,17 @@ import styled from "styled-components"
 
 // contexts
 import { HabitsContext } from "../Contexts/HabitsContext";
-import { ReceivedInfoContext } from "../Contexts/ReceivedInfoContext";
 
 // images
 import checkMark from "./../assets/images/check-mark.png"
 
 export default function TodayHabit({ todayHabitInfo, habitsQuantity, habitsConcluded, setHabitsConcluded }) {
 
-    const { config } = useContext(ReceivedInfoContext)
+    const config = {
+        headers: {
+            "Authorization": "Bearer " + JSON.parse(localStorage.getItem('userInfo')).token
+        }
+    }
 
     const { setUserHabitsPercentage } = useContext(HabitsContext)
 
@@ -20,7 +23,6 @@ export default function TodayHabit({ todayHabitInfo, habitsQuantity, habitsConcl
 
     function concludeHabit() {
         const checkHabitUrl = `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${todayHabitInfo.id}/check`
-
         const uncheckHabitUrl = `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${todayHabitInfo.id}/uncheck`
 
         if (!habitWasConcluded) {

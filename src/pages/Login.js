@@ -35,9 +35,11 @@ export default function Login() {
 
         axios.post(loginURL, loginMessageToSend)
             .then(res => {
-                setUserReceivedInfo(res.data)
+                const userInfoToStore = JSON.stringify(res.data)
+                localStorage.setItem('userInfo', userInfoToStore)
+                setUserReceivedInfo(JSON.parse(userInfoToStore))
                 setSentRequestLogin(false)
-                navigate("/hoje") // CHANGE TO HOJE AFTER
+                navigate("/hoje")
             })
             .catch(() => {
                 alert("Seu login não foi encontrado... Tente novamente")

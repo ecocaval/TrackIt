@@ -6,6 +6,7 @@ import UserHeader from "../components/UserHeader"
 import UserMenu from "../components/UserMenu"
 
 export default function Record() {
+
     return(
         <RecordWrapper>
             <UserHeader/>

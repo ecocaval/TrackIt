@@ -13,7 +13,6 @@ import Loader from "../components/Loader"
 
 // contexts
 import { HabitsContext } from "../Contexts/HabitsContext"
-import { ReceivedInfoContext } from "../Contexts/ReceivedInfoContext"
 
 // images
 import trashCan from "./../assets/images/trash-can.png"
@@ -27,7 +26,6 @@ export default function Habits() {
     const [selectedDays, setSelectedDays] = useState([])
     
     const { userHabits, setUserHabits } = useContext(HabitsContext)
-    const { userReceivedInfo } = useContext(ReceivedInfoContext)
 
     const weekDaysArray = [
         {
@@ -73,7 +71,7 @@ export default function Habits() {
 
     const config = {
         headers: {
-            "Authorization": "Bearer " + userReceivedInfo.token
+            "Authorization": "Bearer " + JSON.parse(localStorage.getItem('userInfo')).token
         }
     }
 

@@ -12,7 +12,6 @@ import axios from "axios"
 
 // contexts
 import { HabitsContext } from "../Contexts/HabitsContext"
-import { ReceivedInfoContext } from "../Contexts/ReceivedInfoContext"
 
 export default function Today() {
 
@@ -27,15 +26,6 @@ export default function Today() {
     let currentDay = dayjs().locale('pt-BR').format(`dddd, DD/MM`)
     currentDay = setFirstLetterToUpper(currentDay)
 
-    const { userReceivedInfo } = useContext(ReceivedInfoContext)
-
-    const config = {
-        headers: {
-            "Authorization": "Bearer " + userReceivedInfo.token
-        }
-    }
-
-
     function setFirstLetterToUpper(currentDay) {
         currentDay = Array.from(currentDay)
         currentDay[0] = currentDay[0].toUpperCase()
@@ -43,9 +33,15 @@ export default function Today() {
         return currentDay
     }
 
+    const config = {
+        headers: {
+            "Authorization": "Bearer " + JSON.parse(localStorage.getItem('userInfo')).token
+        }
+    }
 
     useEffect(() => {
         const todayGetUrl = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today"
+
         axios.get(todayGetUrl, config)
             .then(res => {
                 setTodayHabits(res.data)
