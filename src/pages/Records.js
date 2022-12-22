@@ -68,8 +68,9 @@ export default function Record() {
     return (
         <RecordWrapper>
             <UserHeader />
-            {screenWasJustRendered ? <Loader /> : <><RecordHeader>
-                <div>
+            {screenWasJustRendered ? <Loader /> : <>
+                <RecordHeader>
+                    {/* <div> */}
                     <h2>Histórico</h2>
                     <Calendar
                         onChange={setDate}
@@ -77,8 +78,8 @@ export default function Record() {
                         locale="pt-BR"
                         maxDate={new Date()}
                         formatDay={(_, date) => formatDay(date)} />
-                </div>
-            </RecordHeader>
+                    {/* </div> */}
+                </RecordHeader>
                 <RecordFooter>
                     <SubtitlesItem>
                         <CompleteDay />
@@ -96,7 +97,8 @@ export default function Record() {
                         <CurrentDay />
                         <p>Indicação de dia atual</p>
                     </SubtitlesItem>
-                </RecordFooter></>}
+                </RecordFooter>
+            </>}
             <UserMenu />
         </RecordWrapper>
     )
@@ -233,21 +235,20 @@ const RecordHeader = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 320px;
 
-    > div {
-        width: 80%;
-        > h2 {
-            font-family: 'Lexend Deca';
-            font-size: 23px;
-            color: #126BA5;
-            margin: auto 0px;
-            margin-bottom: 20px;
-        }
-    } 
+    > h2 {
+        width: 320px;
+        font-family: 'Lexend Deca';
+        font-size: 23px;
+        color: #126BA5;
+        margin: auto 0px;
+        margin-bottom: 20px;
+    }
 `
 
 const RecordFooter = styled.footer`
-    width: 310px;
+    width: 320px;
     margin: auto;
     > div {
         display: flex;
