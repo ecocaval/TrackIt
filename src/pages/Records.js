@@ -5,6 +5,9 @@ import styled from "styled-components"
 import UserHeader from "../components/UserHeader"
 import UserMenu from "../components/UserMenu"
 
+import Calendar from 'react-calendar'
+import 'react-calendar/dist/Calendar.css';
+
 export default function Record() {
 
     return(
@@ -12,7 +15,7 @@ export default function Record() {
             <UserHeader/>
                 <RecordHeader>
                     <h2>Histórico</h2>
-                    <p>Em breve você poderá ver o histórico dos seus hábitos aqui!</p>
+                    <Calendar/>
                 </RecordHeader>
             <UserMenu/>
         </RecordWrapper>
