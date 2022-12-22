@@ -21,7 +21,7 @@
 This project was bootstrapped with Create React App, so you need to install Node.js and npm first, in order to test the project. First clone this github repository into your computer, then open the folder cloned:
 
 ```bash
-git clone https://github.com/ecocaval/projeto11-trackit.git && cd projeto11-trackit
+git clone https://github.com/ecocaval/TrackIt.git && cd TrackIt
 ```
 
 Then you must install all the dependencies running:
