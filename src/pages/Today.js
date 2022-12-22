@@ -115,7 +115,7 @@ const TodaySection = styled.section`
 `
 
 const TodayHeader = styled.div`
-    width: 80%;
+    width: 340px;
     margin: 20px 0px;
     > h2 {
         font-family: 'Lexend Deca';

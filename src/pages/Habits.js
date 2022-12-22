@@ -24,7 +24,7 @@ export default function Habits() {
     const [requestWasSent, setRequestWasSent] = useState(false)
     const [habitName, setHabitName] = useState('')
     const [selectedDays, setSelectedDays] = useState([])
-    
+
     const { userHabits, setUserHabits } = useContext(HabitsContext)
 
     const weekDaysArray = [
@@ -216,7 +216,7 @@ export default function Habits() {
                         </Habit>
                     ))
                 )}
-            </>) : <Loader/>}
+            </>) : <Loader />}
             <UserMenu />
         </HabitsWrapper>
     )
@@ -235,7 +235,7 @@ const HabitsSection = styled.section`
     align-items: center;
     margin-bottom: 20px;
     > span {
-        width: 80%;
+        width: 340px;
         display: flex;
         justify-content: space-between;  
         margin: 20px 0px;
