@@ -3,12 +3,13 @@ import { useEffect, useState } from "react"
 // libraries
 import styled from "styled-components"
 import dayjs from "dayjs"
+import axios from "axios"
 
 // components
 import UserHeader from "../components/UserHeader"
 import UserMenu from "../components/UserMenu"
 import Calendar from 'react-calendar'
-import axios from "axios"
+import Loader from "../components/Loader"
 
 export default function Record() {
 
@@ -20,6 +21,10 @@ export default function Record() {
             "Authorization": "Bearer " + JSON.parse(localStorage.getItem('userInfo')).token
         }
     }
+
+    const [screenWasJustRendered, setScreenWasJustRendered] = useState(true)
+
+    setTimeout(() => setScreenWasJustRendered(false), 700)
 
     useEffect(() => {
         const recordsUrl = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/history/daily"
@@ -60,12 +65,10 @@ export default function Record() {
         return daySimpleFormat
     }
 
-    console.log(recordsInfo);
-
     return (
         <RecordWrapper>
             <UserHeader />
-            <RecordHeader>
+            {screenWasJustRendered ? <Loader /> : <><RecordHeader>
                 <div>
                     <h2>Histórico</h2>
                     <Calendar
@@ -76,24 +79,24 @@ export default function Record() {
                         formatDay={(_, date) => formatDay(date)} />
                 </div>
             </RecordHeader>
-            <RecordFooter>
-                <SubtitlesItem>
-                    <CompleteDay />
-                    <p>Todos os hábitos foram completados</p>
-                </SubtitlesItem>
-                <SubtitlesItem>
-                    <MissingDay />
-                    <p>Faltam hábitos para completar</p>
-                </SubtitlesItem>
-                <SubtitlesItem>
-                    <SelectedDay />
-                    <p>Indicação de dia selecionado</p>
-                </SubtitlesItem>
-                <SubtitlesItem>
-                    <CurrentDay />
-                    <p>Indicação de dia atual</p>
-                </SubtitlesItem>
-            </RecordFooter>
+                <RecordFooter>
+                    <SubtitlesItem>
+                        <CompleteDay />
+                        <p>Todos os hábitos foram completados</p>
+                    </SubtitlesItem>
+                    <SubtitlesItem>
+                        <MissingDay />
+                        <p>Faltam hábitos para completar</p>
+                    </SubtitlesItem>
+                    <SubtitlesItem>
+                        <SelectedDay />
+                        <p>Indicação de dia selecionado</p>
+                    </SubtitlesItem>
+                    <SubtitlesItem>
+                        <CurrentDay />
+                        <p>Indicação de dia atual</p>
+                    </SubtitlesItem>
+                </RecordFooter></>}
             <UserMenu />
         </RecordWrapper>
     )

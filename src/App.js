@@ -62,8 +62,8 @@ function App() {
 }
 
 const StyledMain = styled.main`
-  background: #FFFFFF;
   height: 100vh;
+  background: #F2F2F2;
 `
 
 export default App;
