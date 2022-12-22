@@ -1,6 +1,10 @@
 // libraries
 import styled from "styled-components"
 import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+
+import { GoArrowLeft } from "react-icons/go";
+import { IconContext } from "react-icons";
 
 // contexts 
 import { ReceivedInfoContext } from "../Contexts/ReceivedInfoContext"
@@ -9,16 +13,28 @@ export default function UserHeader() {
 
     const { userReceivedInfo, setUserReceivedInfo } = useContext(ReceivedInfoContext)
 
-    if(userReceivedInfo.token === undefined) {
+    const navigate = useNavigate()
+
+    if (userReceivedInfo.token === undefined) {
         setUserReceivedInfo(JSON.parse(localStorage.getItem('userInfo')))
+    }
+
+    function logout() {
+        navigate("/")
+        localStorage.removeItem("userInfo");
     }
 
     return (
         <UserHeaderWrapper data-test="header">
             <p>TrackIt</p>
-            <img src={userReceivedInfo.image}/>
+            <UserHeaderRight>
+                <IconContext.Provider value={{ color: "white", size: "2em" }}>
+                    <GoArrowLeft onClick={logout}/>
+                </IconContext.Provider>
+                <img src={userReceivedInfo.image} />
+            </UserHeaderRight>
         </UserHeaderWrapper>
-    )   
+    )
 }
 
 const UserHeaderWrapper = styled.header`
@@ -39,10 +55,17 @@ const UserHeaderWrapper = styled.header`
         font-size: 39px;
         color: #FFFFFF;
     }
+`
+
+const UserHeaderRight = styled.div`
+    display: flex ;
+    justify-content: center;
+    align-items: center;
     > img {
         width: 51px;
         height: 51px;
         background: url(image.png);
         border-radius: 98px;
+        margin-left: 1em;
     }
 `

@@ -12,6 +12,7 @@
 - [Axios](https://axios-http.com/docs/intro)
 - [React Circular ProgressBar](https://www.npmjs.com/package/react-circular-progressbar)
 - [React Loader Spinner](https://mhnpd.github.io/react-loader-spinner/)
+- [React Icons](https://mhnpd.github.io/react-loader-spinner/)
 - [Dayjs](https://day.js.org/)
 
 # 🏁 Let's go!
