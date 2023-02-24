@@ -2,9 +2,6 @@
 
 <p align = "center"><img style="width:800px" src="./src/assets/images/readMe.png"/></p>
 
-## ✏️ Description
-<p align="justify" >This project was built in the 5o. week of the React module in the driven education bootcamp. The app was built using ReactJS, Axios, Styled-components.</p>
-
 ## :white_circle: Technologies
 
 - [ReactJS](https://reactjs.org/)
